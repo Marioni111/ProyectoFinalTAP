@@ -1,72 +1,81 @@
 package modelo;
 
 public class Juego {
-	String numControl;
-	String nombre;
-	String primerAp;
-	String segundoAp;
-	byte edad;
-	byte semestre;
-	String carrera;
 	
-	public Juego(String numControl, String nombre, String primerAp, String segundoAp, byte edad, byte semestre,
-			String carrera) {
-		this.numControl = numControl;
-		this.nombre = nombre;
-		this.primerAp = primerAp;
-		this.segundoAp = segundoAp;
-		this.edad = edad;
-		this.semestre = semestre;
-		this.carrera = carrera;
+	String idJuego;
+	String titulo;
+	String genero;
+	String estudio;
+	String plataforma;
+	int cantidad;
+	double precio;
+	
+	public Juego(String idJuego, String titulo, String genero, String estudio, String plataforma, int cantidad,
+			double precio) {
+		super();
+		this.idJuego = idJuego;
+		this.titulo = titulo;
+		this.genero = genero;
+		this.estudio = estudio;
+		this.plataforma = plataforma;
+		this.cantidad = cantidad;
+		this.precio = precio;
 	}
 
-	public String getNumControl() {
-		return numControl;
-	}
-	public void setNumControl(String numControl) {
-		this.numControl = numControl;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getPrimerAp() {
-		return primerAp;
-	}
-	public void setPrimerAp(String primerAp) {
-		this.primerAp = primerAp;
-	}
-	public String getSegundoAp() {
-		return segundoAp;
-	}
-	public void setSegundoAp(String segundoAp) {
-		this.segundoAp = segundoAp;
-	}
-	public byte getEdad() {
-		return edad;
-	}
-	public void setEdad(byte edad) {
-		this.edad = edad;
-	}
-	public byte getSemestre() {
-		return semestre;
-	}
-	public void setSemestre(byte semestre) {
-		this.semestre = semestre;
-	}
-	public String getCarrera() {
-		return carrera;
-	}
-	public void setCarrera(String carrera) {
-		this.carrera = carrera;
+	public String getIdJuego() {
+		return idJuego;
 	}
 
-	@Override
-	public String toString() {
-		return "Alumno [numControl=" + numControl + ", nombre=" + nombre + ", primerAp=" + primerAp + ", segundoAp="
-				+ segundoAp + ", edad=" + edad + ", semestre=" + semestre + ", carrera=" + carrera + "]";
+	public void setIdJuego(String idJuego) {
+		this.idJuego = idJuego;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getEstudio() {
+		return estudio;
+	}
+
+	public void setEstudio(String estudio) {
+		this.estudio = estudio;
+	}
+
+	public String getPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(String plataforma) {
+		this.plataforma = plataforma;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 	
 }

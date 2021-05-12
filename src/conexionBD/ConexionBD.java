@@ -12,7 +12,7 @@ public class ConexionBD {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			String URL = "jdbc:mysql://localhost:3306/Escuela_Topicos";
+			String URL = "jdbc:mysql://localhost:3306/TiendaDeVideoJuegos";
 			
 			conexion = DriverManager.getConnection(URL,"root","1234");
 			
@@ -60,14 +60,6 @@ public class ConexionBD {
 			e.printStackTrace();
 		}
 		return rs;
-	}
-	
-	//		
-	
-	public static void main(String[] args) {
-		
-		new ConexionBD();
-		
 	}
 	
 }//class
