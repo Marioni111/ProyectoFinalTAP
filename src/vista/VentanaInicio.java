@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import controlador.AlumnoDAO;
-import modelo.Alumno;
+import controlador.JuegoDAO;
+import modelo.Juego;
 
 
 
@@ -42,7 +42,7 @@ public class VentanaInicio extends JFrame{
 	 
 	 JSpinner spinnerEdadAltas, spinnerEdadBajas, spinnerSemestreBajas, spinnerEdadModificaciones, spinnerSemestreModificaciones, spinnerEdadConsultas, spinnerSemestreConsultas;
 	 
-	 AlumnoDAO aDAO;
+	 JuegoDAO aDAO;
 	 
 	 ResultSetTableModel modeloDatos = null;
 	 
@@ -258,13 +258,13 @@ public class VentanaInicio extends JFrame{
 	        btnAgregarAltas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                Alumno a = new Alumno(txtNumControlAltas.getText(), txtNombresAltas.getText(),
+	                Juego a = new Juego(txtNumControlAltas.getText(), txtNombresAltas.getText(),
 	                        txtPrimerApAltas.getText(), txtSegundoApAltas.getText(),
 	                        Byte.parseByte(spinnerEdadAltas.getValue()+""),
 	                        Byte.parseByte(cboSemestreAltas.getSelectedItem()+""),
 	                        cboCarreraAltas.getSelectedItem()+"");
 	                
-	                aDAO = new AlumnoDAO();
+	                aDAO = new JuegoDAO();
 	        		
 	        		System.out.println(aDAO.insertarRegistro(a)?"EXITO":"FALLO");
 	        		
@@ -466,7 +466,7 @@ public class VentanaInicio extends JFrame{
 	            public void actionPerformed(ActionEvent e) {
 	            	String nc = txtNumControlBajas.getText();
 	            	
-	            	aDAO = new AlumnoDAO();
+	            	aDAO = new JuegoDAO();
 	        		
 	        		System.out.println(aDAO.eliminarRegistro(nc)?"EXITO":"Me cambio de carrera");
 	        		
@@ -660,13 +660,13 @@ public class VentanaInicio extends JFrame{
 	        btnModificar.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	Alumno a = new Alumno(txtNumControlModificaciones.getText(), txtNombresModificaciones.getText(),
+	            	Juego a = new Juego(txtNumControlModificaciones.getText(), txtNombresModificaciones.getText(),
 	                        txtPrimerApModificaciones.getText(), txtSegundoApModificaciones.getText(),
 	                        Byte.parseByte(spinnerEdadModificaciones.getValue()+""),
 	                        Byte.parseByte(spinnerSemestreModificaciones.getValue()+""),
 	                        cboCarreraModificaciones.getSelectedItem()+"");
 	                
-	                aDAO = new AlumnoDAO();
+	                aDAO = new JuegoDAO();
 	        		
 	        		System.out.println(aDAO.modificarRegistro(a)?"EXITO":"FALLO");
 	        		
@@ -829,7 +829,7 @@ public class VentanaInicio extends JFrame{
 					
 					String carrera = "Ingenieria en Sistemas Computacionales";
 					
-					Alumno mAlumno = new AlumnoDAO().BuscarAlumnosPorCarrera(carrera);
+					Juego mAlumno = new JuegoDAO().BuscarAlumnosPorCarrera(carrera);
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -849,7 +849,7 @@ public class VentanaInicio extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					String carrera = "Ingenieria en Mecatrónica";
 					
-					Alumno mAlumno = new AlumnoDAO().BuscarAlumnosPorCarrera(carrera);
+					Juego mAlumno = new JuegoDAO().BuscarAlumnosPorCarrera(carrera);
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -869,7 +869,7 @@ public class VentanaInicio extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					String carrera = "Ingenieria en Industrias Alimentarias";
 					
-					Alumno mAlumno = new AlumnoDAO().BuscarAlumnosPorCarrera(carrera);
+					Juego mAlumno = new JuegoDAO().BuscarAlumnosPorCarrera(carrera);
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -889,7 +889,7 @@ public class VentanaInicio extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					String carrera = "Lincenciatura en Administracion";
 					
-					Alumno mAlumno = new AlumnoDAO().BuscarAlumnosPorCarrera(carrera);
+					Juego mAlumno = new JuegoDAO().BuscarAlumnosPorCarrera(carrera);
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -910,7 +910,7 @@ public class VentanaInicio extends JFrame{
 					
 					String carrera = "Licenciatura en Contador Publico";
 					
-					Alumno mAlumno = new AlumnoDAO().BuscarAlumnosPorCarrera(carrera);
+					Juego mAlumno = new JuegoDAO().BuscarAlumnosPorCarrera(carrera);
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -928,7 +928,7 @@ public class VentanaInicio extends JFrame{
 			btnPrimero.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	Alumno mAlumno = new AlumnoDAO().CargarPrimero();
+	            	Juego mAlumno = new JuegoDAO().CargarPrimero();
 					txtNombresConsultas.setText(mAlumno.getNombre());
 					txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 					txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -943,7 +943,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	if ( Integer.parseInt(txtRegistroActual.getText())-1 > 0 ){
-						Alumno mAlumno = (new AlumnoDAO().CargarAnterior(Integer.parseInt(txtRegistroActual.getText())-1));
+						Juego mAlumno = (new JuegoDAO().CargarAnterior(Integer.parseInt(txtRegistroActual.getText())-1));
 						txtNombresConsultas.setText(mAlumno.getNombre());
 						txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 						txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -966,7 +966,7 @@ public class VentanaInicio extends JFrame{
 	        btnSiguiente.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	Alumno mAlumno = (new AlumnoDAO().CargarSiguien( Integer.parseInt(txtRegistroActual.getText())+1));
+	            	Juego mAlumno = (new JuegoDAO().CargarSiguien( Integer.parseInt(txtRegistroActual.getText())+1));
 	            	txtNombresConsultas.setText(mAlumno.getNombre());
 	            	txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 	            	txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -982,7 +982,7 @@ public class VentanaInicio extends JFrame{
 	        btnUltimo.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	Alumno mAlumno = (new AlumnoDAO().CargarUltimo());
+	            	Juego mAlumno = (new JuegoDAO().CargarUltimo());
 	            	txtNombresConsultas.setText(mAlumno.getNombre());
 	            	txtPrimerApConsultas.setText(mAlumno.getPrimerAp());
 	            	txtSegundoApConsultas.setText(mAlumno.getSegundoAp());
@@ -996,7 +996,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	               
-	            	aDAO = new AlumnoDAO();
+	            	aDAO = new JuegoDAO();
 		     		
 	            	String sql = "SELECT * FROM Alumnos WHERE numControl = " + txtNombresConsultas.getText();
 					String controlador = "com.mysql.cj.jdbc.Driver";

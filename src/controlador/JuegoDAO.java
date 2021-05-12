@@ -5,23 +5,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import conexionBD.ConexionBD;
-import modelo.Alumno;
+import modelo.Juego;
 
 //DAO - Data Access Object
 
-public class AlumnoDAO {
+public class JuegoDAO {
 	
 	ConexionBD conexion;
 	int linea;
 
-	public AlumnoDAO() {
+	public JuegoDAO() {
 		conexion = new ConexionBD();
 		//this.conexion = conexion;
 	}
 	
 	// Metodos para Altas, Bajas, Cambios y Consultas
 	
-	public boolean insertarRegistro(Alumno a) {
+	public boolean insertarRegistro(Juego a) {
 		boolean resultado = false;
 		
 		String sql="INSERT INTO alumnos VALUES('"+a.getNumControl()+"','"+a.getNombre()+"','"+a.getPrimerAp()+"','"+a.getSegundoAp()+"',"+a.getEdad()+","+a.getSemestre()+",'"+a.getCarrera()+"')";
@@ -39,7 +39,7 @@ public class AlumnoDAO {
 		return resultado;
 	}
 	
-	public boolean modificarRegistro(Alumno a) {
+	public boolean modificarRegistro(Juego a) {
 		boolean resultado = false;
 		
 		String sql = "UPDATE alumnos SET nombre='"+ a.getNombre() +
@@ -55,9 +55,9 @@ public class AlumnoDAO {
 		return resultado;
 	}
 	
-	public ArrayList<Alumno> BuscarAlumnos(String filtro) {
+	public ArrayList<Juego> BuscarAlumnos(String filtro) {
 		
-		ArrayList<Alumno> listaAlumnos = new ArrayList<>();
+		ArrayList<Juego> listaAlumnos = new ArrayList<>();
 		
 		String sql = "SELECT * FROM alumnos";
 		
@@ -66,7 +66,7 @@ public class AlumnoDAO {
 		try {
 			if(rs.next()) {
 				do {
-					listaAlumnos.add(new Alumno(rs.getString(1), 
+					listaAlumnos.add(new Juego(rs.getString(1), 
 												rs.getString(2), 
 												rs.getString(3), 
 												rs.getString(4), 
@@ -82,9 +82,9 @@ public class AlumnoDAO {
 		return listaAlumnos;
 	}
 	
-	public Alumno BuscarAlumnosPorCarrera(String carrera) {
+	public Juego BuscarAlumnosPorCarrera(String carrera) {
 		
-		Alumno alumno = null;
+		Juego alumno = null;
 		
         String instruccionSQL = "SELECT * FROM alumnos WHERE carrera = '" + carrera + "'";
         
@@ -92,7 +92,7 @@ public class AlumnoDAO {
 
         try{
             if(rs.next()) {
-                alumno = new Alumno(rs.getString(1),
+                alumno = new Juego(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -109,7 +109,7 @@ public class AlumnoDAO {
 	
 	
     public void lineas (){
-        Alumno alumno = null;
+        Juego alumno = null;
         String instruccionSQL = "SELECT * FROM alumnos";
         ResultSet rs = conexion.ejecutarConsulta(instruccionSQL);
         try {
@@ -119,14 +119,14 @@ public class AlumnoDAO {
         }
     }
 
-    public Alumno CargarPrimero(){
-        Alumno alumno = null;
+    public Juego CargarPrimero(){
+        Juego alumno = null;
         String instruccionSQL = "SELECT * FROM alumnos";
         ResultSet rs = conexion.ejecutarConsulta(instruccionSQL);
 
         try{
             if(rs.next()) {
-                alumno = new Alumno(rs.getString(1),
+                alumno = new Juego(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -141,15 +141,15 @@ public class AlumnoDAO {
         return  alumno;
     }
 	
-    public Alumno CargarSiguien(int num){
-        Alumno alumno = null;
+    public Juego CargarSiguien(int num){
+        Juego alumno = null;
         String instruccionSQL = "SELECT * FROM alumnos";
         ResultSet rs = conexion.ejecutarConsulta(instruccionSQL);
 
         if (num >= linea){
             try{
                 if(rs.relative(num)){
-                    alumno = new Alumno(rs.getString(1),
+                    alumno = new Juego(rs.getString(1),
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
@@ -167,15 +167,15 @@ public class AlumnoDAO {
         return  alumno;
     }
 
-    public Alumno CargarAnterior(int num){
-        Alumno alumno = null;
+    public Juego CargarAnterior(int num){
+        Juego alumno = null;
         String instruccionSQL = "SELECT * FROM alumnos";
         ResultSet rs = conexion.ejecutarConsulta(instruccionSQL);
 
         if (num >= 0){
             try{
                 if(rs.relative(num)){
-                    alumno = new Alumno(rs.getString(1),
+                    alumno = new Juego(rs.getString(1),
                             rs.getString(2),
                             rs.getString(3),
                             rs.getString(4),
@@ -192,14 +192,14 @@ public class AlumnoDAO {
         return  alumno;
     }
 
-    public Alumno CargarUltimo(){
-        Alumno alumno = null;
+    public Juego CargarUltimo(){
+        Juego alumno = null;
         String instruccionSQL = "SELECT * FROM alumnos;";
         ResultSet rs = conexion.ejecutarConsulta(instruccionSQL);
 
         try{
             if(rs.last()){
-                alumno = new Alumno(rs.getString(1),
+                alumno = new Juego(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),

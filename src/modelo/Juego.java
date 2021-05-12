@@ -1,6 +1,6 @@
 package modelo;
 
-public class Alumno {
+public class Juego {
 	String numControl;
 	String nombre;
 	String primerAp;
@@ -9,7 +9,7 @@ public class Alumno {
 	byte semestre;
 	String carrera;
 	
-	public Alumno(String numControl, String nombre, String primerAp, String segundoAp, byte edad, byte semestre,
+	public Juego(String numControl, String nombre, String primerAp, String segundoAp, byte edad, byte semestre,
 			String carrera) {
 		this.numControl = numControl;
 		this.nombre = nombre;
