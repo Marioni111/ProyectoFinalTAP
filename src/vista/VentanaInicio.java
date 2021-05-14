@@ -25,24 +25,29 @@ public class VentanaInicio extends JFrame{
 	 JInternalFrame frameAltas, frameBajas, frameModificaciones, frameConsultas;
 	 
 	 JTextField txtTituloAltas, txtPrecioAltas,
-	 			txtIdJuegoBajas, txtNombresBajas, txtPrimerApBajas, txtSegundoApBajas,
-	 			txtIdJuegoModificaciones, txtNombresModificaciones, txtPrimerApModificaciones, txtSegundoApModificaciones,
-	 			txtNumControlConsultas, txtNombresConsultas, txtPrimerApConsultas, txtSegundoApConsultas;
+	 			txtIdJuegoBajas, txtTituloBajas, txtPrecioBajas,
+	 			txtIdJuegoModificaciones, txtTituloModificaciones, txtPrecioModificaciones,
+	 			txtIdJuegoConsultas, txtTituloConsultas, txtPrecioConsultas;
 	 
 	 JButton btnAgregarAltas, btnRestablecerAltas, 
-	 		 btnEliminar, btnRestablecerBajas2,  btnBuscarBajas, 
-	 		 btnModificar, btnRestablecerModificaciones2, btnBuscarModificaciones,
-	 		 btnRestablecerConsultas, btnBuscarConsultas;
+	         btnEliminar, btnRestablecerBajas,
+	         btnActualizar, btnRestablecerModificaciones,
+	         btnBuscar, btnRestablecerConsultas;
 	 
 	 JComboBox<String> cboGeneroAltas, cboEstudioAltas, cboPlataformaAltas,
-	 					cboCarreraBajas, cboCarreraModificaciones, cboCarreraConsultas;
+	 				   cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas,
+	 				   cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones,
+	 				   cboGeneroConsultas, cboEstudioConsultas, cboPlataformaConsultas;
 	
 	 JScrollPane scrollAltas, scrollBajas, scrollModificaciones, scrolConsultas;
 	 
 	 JTable tablaJuegosAltas, tablaJuegosBajas, tablaJuegosModificaciones, tablaJuegosConsultas;
 	 
-	 JSpinner spinnerCantidadAltas, spinnerEdadBajas, spinnerSemestreBajas, spinnerEdadModificaciones, spinnerSemestreModificaciones, spinnerEdadConsultas, spinnerSemestreConsultas;
-	 
+	 JSpinner spinnerCantidadAltas, 
+	 		  spinnerCantidadBajas, 
+	 		  spinnerCantidadModificaciones, 
+	 		  spinnerCantidadConsultas;
+	 		  
 	 JuegoDAO aDAO;
 	 
 	 ResultSetTableModel modeloDatos = null;
@@ -165,27 +170,28 @@ public class VentanaInicio extends JFrame{
 	        Font f2 = new Font("Arial", Font.CENTER_BASELINE, 14);
 	        JPanel panel2 = new JPanel();
 	        panel2.setLayout(null);
+	        panel2.setBackground(new Color(255, 255, 255));
 	        panel2.setPreferredSize(new Dimension(700, 190));
 	        panel2.setBounds(0, 80, 700, 330);
 
 	        JLabel lblInformacion = new JLabel("INGRESA LOS DATOS DEL JUEGO NUEVO: ");
 	        lblInformacion.setFont(f2);
-	        lblInformacion.setBounds(70, 10, 400, 25);
+	        lblInformacion.setBounds(110, 10, 400, 25);
 	        panel2.add(lblInformacion);
 	        
 	        JLabel lblTitulo = new JLabel("TITULO: ");
 	        lblTitulo.setFont(f2);
-	        lblTitulo.setBounds(100, 50, 400, 25);
+	        lblTitulo.setBounds(180, 50, 400, 25);
 	        panel2.add(lblTitulo);
 
 	        txtTituloAltas = new JTextField(10);
 	        txtTituloAltas.setFont(f2);
-	        txtTituloAltas.setBounds(255, 50, 176, 23);
+	        txtTituloAltas.setBounds(330, 50, 176, 23);
 	        panel2.add(txtTituloAltas);
 
 	        JLabel lblGenero = new JLabel("GENERO:");
 	        lblGenero.setFont(f2);
-	        lblGenero.setBounds(100, 90, 300, 25);
+	        lblGenero.setBounds(180, 90, 300, 25);
 	        panel2.add(lblGenero);
 
 	        cboGeneroAltas = new JComboBox<String>();
@@ -198,12 +204,12 @@ public class VentanaInicio extends JFrame{
 	        cboGeneroAltas.addItem("Deportes");
 	        cboGeneroAltas.addItem("Carreras");
 	        cboGeneroAltas.setFont(f1);
-	        cboGeneroAltas.setBounds(255, 90, 176, 23);
+	        cboGeneroAltas.setBounds(330, 90, 176, 23);
 	        panel2.add(cboGeneroAltas);
 
 	        JLabel lblEstudio = new JLabel("ESTUDIO:");
 	        lblEstudio.setFont(f2);
-	        lblEstudio.setBounds(100, 130, 300, 25);
+	        lblEstudio.setBounds(180, 130, 300, 25);
 	        panel2.add(lblEstudio);
 	        
 	        cboEstudioAltas = new JComboBox<String>();
@@ -215,12 +221,12 @@ public class VentanaInicio extends JFrame{
 	        cboEstudioAltas.addItem("Microsoft Studios");
 	        cboEstudioAltas.addItem("Game Freak");
 	        cboEstudioAltas.setFont(f1);
-	        cboEstudioAltas.setBounds(255, 130, 176, 23);
+	        cboEstudioAltas.setBounds(330, 130, 176, 23);
 	        panel2.add(cboEstudioAltas);
 
 	        JLabel lblPlataforma = new JLabel("PLATAFORMA:");
 	        lblPlataforma.setFont(f2);
-	        lblPlataforma.setBounds(100, 170, 300, 25);
+	        lblPlataforma.setBounds(180, 170, 300, 25);
 	        panel2.add(lblPlataforma);
 
 	        cboPlataformaAltas = new JComboBox<String>();
@@ -230,31 +236,31 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaAltas.addItem("Playstation 4");
 	        cboPlataformaAltas.addItem("Nintendos Switsh");
 	        cboPlataformaAltas.setFont(f1);
-	        cboPlataformaAltas.setBounds(255, 170, 176, 23);
+	        cboPlataformaAltas.setBounds(330, 170, 176, 23);
 	        panel2.add(cboPlataformaAltas);
 
 	        JLabel lblCantidad = new JLabel("CANTIDAD:");
 	        lblCantidad.setFont(f2);
-	        lblCantidad.setBounds(100, 210, 300, 25);
+	        lblCantidad.setBounds(180, 210, 300, 25);
 	        panel2.add(lblCantidad);
 
 			spinnerCantidadAltas = new JSpinner();
-			spinnerCantidadAltas.setBounds(255, 210, 176, 23);
+			spinnerCantidadAltas.setBounds(330, 210, 176, 23);
 			panel2.add(spinnerCantidadAltas);
 	        
 	        JLabel lblSemestre = new JLabel("PRECIO:");
 	        lblSemestre.setFont(f2);
-	        lblSemestre.setBounds(100, 250, 300, 25);
+	        lblSemestre.setBounds(180, 250, 300, 25);
 	        panel2.add(lblSemestre);
 
 	        txtPrecioAltas = new JTextField(10);
 	        txtPrecioAltas.setFont(f2);
-	        txtPrecioAltas.setBounds(255, 250, 176, 23);
+	        txtPrecioAltas.setBounds(330, 250, 176, 23);
 	        panel2.add(txtPrecioAltas);
 	        
 	        btnRestablecerAltas = new JButton("LIMPIAR");
 	        btnRestablecerAltas.setFont(f2);
-	        btnRestablecerAltas.setBounds(460, 100, 120, 30);
+	        btnRestablecerAltas.setBounds(180, 290, 120, 30);
 	        btnRestablecerAltas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -265,7 +271,7 @@ public class VentanaInicio extends JFrame{
 
 	        btnAgregarAltas = new JButton("AGREGAR");
 	        btnAgregarAltas.setFont(f2);
-	        btnAgregarAltas.setBounds(255, 290, 174, 25);
+	        btnAgregarAltas.setBounds(330, 290, 174, 25);
 	        panel2.add(btnAgregarAltas);
 
 	        frameAltas.add(panel2);
@@ -316,143 +322,129 @@ public class VentanaInicio extends JFrame{
 	        panel4.add(lbl2);
 
 	        frameBajas.add(panel4);
-
+	        
 	        JPanel panel5 = new JPanel();
 	        panel5.setLayout(null);
+	        panel5.setBackground(new Color(255, 255, 255));
 	        panel5.setPreferredSize(new Dimension(700, 190));
-	        panel5.setBounds(0, 80, 700, 80);
-
-	        JLabel lblIdJuego = new JLabel("id del Juego:");
+	        panel5.setBounds(0, 80, 700, 330);
+	        
+	        JLabel lblInformacion2 = new JLabel("Busca el juego que quieres sacar del inventario y seleccionalo para cargar sus datos: ");
+	        lblInformacion2.setFont(f2);
+	        lblInformacion2.setBounds(10, 30, 630, 25);
+	        panel5.add(lblInformacion2);
+	        
+	        JLabel lblIdJuego = new JLabel("ID JUEGO: ");
 	        lblIdJuego.setFont(f2);
-	        lblIdJuego.setBounds(80, 30, 400, 25);
+	        lblIdJuego.setBounds(50, 100, 100, 25);
 	        panel5.add(lblIdJuego);
 
 	        txtIdJuegoBajas = new JTextField(10);
 	        txtIdJuegoBajas.setFont(f2);
-	        txtIdJuegoBajas.setBounds(250, 30, 150, 23);
+	        txtIdJuegoBajas.setBounds(150, 100, 176, 23);
 	        panel5.add(txtIdJuegoBajas);
+	        
+	        JLabel lblTitulo2 = new JLabel("TITULO: ");
+	        lblTitulo2.setFont(f2);
+	        lblTitulo2.setBounds(50, 150, 100, 25);
+	        panel5.add(lblTitulo2);
 
-	        btnBuscarBajas = new JButton(new ImageIcon("Iconos/Buscar.png"));
-	        btnBuscarBajas.setBounds(420, 20, 50, 45);
-	        btnBuscarBajas.addActionListener(new ActionListener() {
+	        txtTituloBajas = new JTextField(10);
+	        txtTituloBajas.setFont(f2);
+	        txtTituloBajas.setBounds(150, 150, 176, 23);
+	        panel5.add(txtTituloBajas);
+
+	        JLabel lblGenero2 = new JLabel("GENERO:");
+	        lblGenero2.setFont(f2);
+	        lblGenero2.setBounds(350, 90, 300, 25);
+	        panel5.add(lblGenero2);
+
+	        cboGeneroBajas = new JComboBox<String>();
+	        cboGeneroBajas.addItem("Elige el genero...");
+	        cboGeneroBajas.addItem("Disparos");
+	        cboGeneroBajas.addItem("Terror");
+	        cboGeneroBajas.addItem("Aventura");
+	        cboGeneroBajas.addItem("Estrategia");
+	        cboGeneroBajas.addItem("Peleas");
+	        cboGeneroBajas.addItem("Deportes");
+	        cboGeneroBajas.addItem("Carreras");
+	        cboGeneroBajas.setFont(f1);
+	        cboGeneroBajas.setBounds(460, 90, 176, 23);
+	        panel5.add(cboGeneroBajas);
+
+	        JLabel lblEstudio2 = new JLabel("ESTUDIO:");
+	        lblEstudio2.setFont(f2);
+	        lblEstudio2.setBounds(350, 130, 300, 25);
+	        panel5.add(lblEstudio2);
+	        
+	        cboEstudioBajas = new JComboBox<String>();
+	        cboEstudioBajas.addItem("Elige el estudio...");
+	        cboEstudioBajas.addItem("Ubisoft");
+	        cboEstudioBajas.addItem("Capcom");
+	        cboEstudioBajas.addItem("Epic Games");
+	        cboEstudioBajas.addItem("Electronic Arts");
+	        cboEstudioBajas.addItem("Microsoft Studios");
+	        cboEstudioBajas.addItem("Game Freak");
+	        cboEstudioBajas.setFont(f1);
+	        cboEstudioBajas.setBounds(460, 130, 176, 23);
+	        panel5.add(cboEstudioBajas);
+
+	        JLabel lblPlataforma2 = new JLabel("PLATAFORMA:");
+	        lblPlataforma2.setFont(f2);
+	        lblPlataforma2.setBounds(350, 170, 300, 25);
+	        panel5.add(lblPlataforma2);
+
+	        cboPlataformaBajas = new JComboBox<String>();
+	        cboPlataformaBajas.addItem("Elige la plataforma...");
+	        cboPlataformaBajas.addItem("Xbox Series");
+	        cboPlataformaBajas.addItem("Playstation 5");
+	        cboPlataformaBajas.addItem("Playstation 4");
+	        cboPlataformaBajas.addItem("Nintendos Switsh");
+	        cboPlataformaBajas.setFont(f1);
+	        cboPlataformaBajas.setBounds(460, 170, 176, 23);
+	        panel5.add(cboPlataformaBajas);
+
+	        JLabel lblCantidad2 = new JLabel("CANTIDAD:");
+	        lblCantidad2.setFont(f2);
+	        lblCantidad2.setBounds(350, 210, 300, 25);
+	        panel5.add(lblCantidad2);
+
+			spinnerCantidadBajas = new JSpinner();
+			spinnerCantidadBajas.setBounds(460, 210, 176, 23);
+			panel5.add(spinnerCantidadBajas);
+	        
+	        JLabel lblSemestre2 = new JLabel("PRECIO:");
+	        lblSemestre2.setFont(f2);
+	        lblSemestre2.setBounds(350, 250, 300, 25);
+	        panel5.add(lblSemestre2);
+
+	        txtPrecioBajas = new JTextField(10);
+	        txtPrecioBajas.setFont(f2);
+	        txtPrecioBajas.setBounds(460, 250, 176, 23);
+	        panel5.add(txtPrecioBajas);
+	        
+	        btnRestablecerBajas = new JButton("LIMPIAR");
+	        btnRestablecerBajas.setFont(f2);
+	        btnRestablecerBajas.setBounds(150, 250, 174, 30);
+	        btnRestablecerBajas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	
+	                metodoRestablecer(txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, txtPrecioBajas);
 	            }
 	        });
-	        panel5.add(btnBuscarBajas);
+	        panel5.add(btnRestablecerBajas);
 
-	        JLabel lblLinea = new JLabel("_____________________________________________________________________________");
-	        lblLinea.setFont(f2);
-	        lblLinea.setBounds(0, 60, 630, 20);
-	        panel5.add(lblLinea);
+	        btnEliminar = new JButton("ELIMINAR");
+	        btnEliminar.setFont(f2);
+	        btnEliminar.setBounds(150, 200, 174, 30);
+	        panel5.add(btnEliminar);
 
 	        frameBajas.add(panel5);
 
 	        JPanel panel6 = new JPanel();
 	        panel6.setLayout(null);
 	        panel6.setPreferredSize(new Dimension(700, 190));
-	        panel6.setBounds(0, 160, 700, 250);
-
-	        JLabel lblNombres2 = new JLabel("NOMBRE(S):");
-	        lblNombres2.setFont(f2);
-	        lblNombres2.setBounds(100, 30, 400, 25);
-	        panel6.add(lblNombres2);
-
-	        txtNombresBajas = new JTextField(10);
-	        txtNombresBajas.setFont(f2);
-	        txtNombresBajas.setBounds(280, 30, 176, 23);
-	        panel6.add(txtNombresBajas);
-
-	        JLabel lblApePaterno2 = new JLabel("APELLIDO PATERNO:");
-	        lblApePaterno2.setFont(f2);
-	        lblApePaterno2.setBounds(100, 70, 300, 25);
-	        panel6.add(lblApePaterno2);
-
-	        txtPrimerApBajas = new JTextField(10);
-	        txtPrimerApBajas.setFont(f2);
-	        txtPrimerApBajas.setBounds(280, 70, 176, 23);
-	        panel6.add(txtPrimerApBajas);
-
-	        JLabel lblApeMaterno2 = new JLabel("APELLIDO MATERNO:");
-	        lblApeMaterno2.setFont(f2);
-	        lblApeMaterno2.setBounds(100, 110, 300, 25);
-	        panel6.add(lblApeMaterno2);
-
-	        txtSegundoApBajas = new JTextField(10);
-	        txtSegundoApBajas.setFont(f2);
-	        txtSegundoApBajas.setBounds(280, 110, 176, 23);
-	        panel6.add(txtSegundoApBajas);
-	        
-	        JLabel lblEdad2 = new JLabel("EDAD:");
-	        lblEdad2.setFont(f2);
-	        lblEdad2.setBounds(100, 150, 300, 25);
-	        panel6.add(lblEdad2);
-
-			spinnerEdadBajas = new JSpinner();
-			spinnerEdadBajas.setBounds(280, 150, 176, 23);
-			panel6.add(spinnerEdadBajas);
-	        
-	        JLabel lblSemestre2 = new JLabel("SEMESTRE:");
-	        lblSemestre2.setFont(f2);
-	        lblSemestre2.setBounds(100, 190, 300, 25);
-	        panel6.add(lblSemestre2);
-
-	        spinnerSemestreBajas = new JSpinner();
-	        spinnerSemestreBajas.setAutoscrolls(true);
-	        spinnerSemestreBajas.setBounds(280, 190, 176, 23);
-	        panel6.add(spinnerSemestreBajas);
-
-	        JLabel lblCarrera2 = new JLabel("CARRERA:");
-	        lblCarrera2.setFont(f2);
-	        lblCarrera2.setBounds(100, 230, 300, 25);
-	        panel6.add(lblCarrera2);
-
-	        cboCarreraBajas = new JComboBox<String>();
-	        cboCarreraBajas.addItem("Elige Carrera...");
-	        cboCarreraBajas.addItem("Ingenieria en Sistemas Computacionales");
-	        cboCarreraBajas.addItem("Ingenieria en Industrias Alimentarias");
-	        cboCarreraBajas.addItem("Ingenieria en Mecatronica");
-	        cboCarreraBajas.addItem("Licenciatura en Administracion");
-	        cboCarreraBajas.addItem("Licenciatura en Contador Publico");
-	        cboCarreraBajas.setFont(f1);
-	        cboCarreraBajas.setBounds(280, 230, 175, 23);
-	        panel6.add(cboCarreraBajas);
-
-	        btnEliminar = new JButton("ELIMINAR");
-	        btnEliminar.setFont(f2);
-	        btnEliminar.setBounds(480, 45, 135, 25);
-	        btnEliminar.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	            	String nc = txtIdJuegoBajas.getText();
-	            	
-	            	aDAO = new JuegoDAO();
-	        		
-	        		System.out.println(aDAO.eliminarRegistro(nc)?"EXITO":"Me cambio de carrera");
-	        		
-	        		actualizarTabla();
-	            }
-	        });
-	        panel6.add(btnEliminar);
-
-	        btnRestablecerBajas2 = new JButton("RESTABLECER");
-	        btnRestablecerBajas2.setFont(f2);
-	        btnRestablecerBajas2.setBounds(480, 170, 135, 25);
-	        btnRestablecerBajas2.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	            	metodoRestablecer(txtNombresBajas, txtIdJuegoBajas, txtPrimerApBajas, txtSegundoApBajas, spinnerEdadBajas, cboCarreraBajas, spinnerSemestreBajas);
-	            }
-	        });
-	        panel6.add(btnRestablecerBajas2);
-
-	        frameBajas.add(panel6);
-
-	        JPanel panel7 = new JPanel();
-	        panel7.setLayout(null);
-	        panel7.setPreferredSize(new Dimension(700, 190));
-	        panel7.setBounds(0, 410, 700, 152);
+	        panel6.setBounds(0, 410, 700, 152);
 
 	        tablaJuegosBajas = new JTable();
 	        tablaJuegosBajas.setModel(new javax.swing.table.DefaultTableModel(
@@ -462,9 +454,9 @@ public class VentanaInicio extends JFrame{
 
 	        scrollBajas = new JScrollPane(tablaJuegosBajas);
 	        scrollBajas.setBounds(5, 9, 678, 135);
-	        panel7.add(scrollBajas);
+	        panel6.add(scrollBajas);
 
-	        frameBajas.add(panel7);
+	        frameBajas.add(panel6);
 
 	        pane.add(frameBajas);
 
@@ -482,139 +474,142 @@ public class VentanaInicio extends JFrame{
 	        frameModificaciones.setResizable(true);
 	        frameModificaciones.setVisible(false);
 
-	        JPanel panel8 = new JPanel();
-	        panel8.setBackground(new Color(115, 170, 249));
-	        panel8.setLayout(null);
-	        panel8.setPreferredSize(new Dimension(700, 190));
-	        panel8.setBounds(0, 0, 700, 80);
+	        JPanel panel7 = new JPanel();
+	        panel7.setBackground(new Color(115, 170, 249));
+	        panel7.setLayout(null);
+	        panel7.setPreferredSize(new Dimension(700, 190));
+	        panel7.setBounds(0, 0, 700, 80);
 
 	        JLabel lbl3 = new JLabel("ACTUALIZAR INFORMACION DE JUEGOS");
 	        lbl3.setFont(new Font("Arial", Font.BOLD, 24));
 	        lbl3.setForeground(new Color(255, 255, 255));
 	        lbl3.setBounds(30, 30, 500, 20);
-	        panel8.add(lbl3);
+	        panel7.add(lbl3);
+
+	        frameModificaciones.add(panel7);
+
+	        JPanel panel8 = new JPanel();
+	        panel8.setLayout(null);
+	        panel8.setBackground(new Color(255, 255, 255));
+	        panel8.setPreferredSize(new Dimension(700, 190));
+	        panel8.setBounds(0, 80, 700, 330);
+	        
+	        JLabel lblInformacion3 = new JLabel("Busca el juego que necesitas actualizar y seleccionalo para cargar sus datos: ");
+	        lblInformacion3.setFont(f2);
+	        lblInformacion3.setBounds(10, 30, 630, 25);
+	        panel8.add(lblInformacion3);
+	        
+	        JLabel lblIdJuego2 = new JLabel("ID JUEGO: ");
+	        lblIdJuego2.setFont(f2);
+	        lblIdJuego2.setBounds(50, 100, 100, 25);
+	        panel8.add(lblIdJuego2);
+
+	        txtIdJuegoModificaciones = new JTextField(10);
+	        txtIdJuegoModificaciones.setFont(f2);
+	        txtIdJuegoModificaciones.setBounds(150, 100, 176, 23);
+	        panel8.add(txtIdJuegoModificaciones);
+	        
+	        JLabel lblTitulo3 = new JLabel("TITULO: ");
+	        lblTitulo3.setFont(f2);
+	        lblTitulo3.setBounds(50, 150, 100, 25);
+	        panel8.add(lblTitulo3);
+
+	        txtTituloModificaciones = new JTextField(10);
+	        txtTituloModificaciones.setFont(f2);
+	        txtTituloModificaciones.setBounds(150, 150, 176, 23);
+	        panel8.add(txtTituloModificaciones);
+
+	        JLabel lblGenero3 = new JLabel("GENERO:");
+	        lblGenero3.setFont(f2);
+	        lblGenero3.setBounds(350, 90, 300, 25);
+	        panel8.add(lblGenero3);
+
+	        cboGeneroModificaciones = new JComboBox<String>();
+	        cboGeneroModificaciones.addItem("Elige el genero...");
+	        cboGeneroModificaciones.addItem("Disparos");
+	        cboGeneroModificaciones.addItem("Terror");
+	        cboGeneroModificaciones.addItem("Aventura");
+	        cboGeneroModificaciones.addItem("Estrategia");
+	        cboGeneroModificaciones.addItem("Peleas");
+	        cboGeneroModificaciones.addItem("Deportes");
+	        cboGeneroModificaciones.addItem("Carreras");
+	        cboGeneroModificaciones.setFont(f1);
+	        cboGeneroModificaciones.setBounds(460, 90, 176, 23);
+	        panel8.add(cboGeneroModificaciones);
+
+	        JLabel lblEstudio3 = new JLabel("ESTUDIO:");
+	        lblEstudio3.setFont(f2);
+	        lblEstudio3.setBounds(350, 130, 300, 25);
+	        panel8.add(lblEstudio3);
+	        
+	        cboEstudioModificaciones = new JComboBox<String>();
+	        cboEstudioModificaciones.addItem("Elige el estudio...");
+	        cboEstudioModificaciones.addItem("Ubisoft");
+	        cboEstudioModificaciones.addItem("Capcom");
+	        cboEstudioModificaciones.addItem("Epic Games");
+	        cboEstudioModificaciones.addItem("Electronic Arts");
+	        cboEstudioModificaciones.addItem("Microsoft Studios");
+	        cboEstudioModificaciones.addItem("Game Freak");
+	        cboEstudioModificaciones.setFont(f1);
+	        cboEstudioModificaciones.setBounds(460, 130, 176, 23);
+	        panel8.add(cboEstudioModificaciones);
+
+	        JLabel lblPlataforma3 = new JLabel("PLATAFORMA:");
+	        lblPlataforma3.setFont(f2);
+	        lblPlataforma3.setBounds(350, 170, 300, 25);
+	        panel8.add(lblPlataforma3);
+
+	        cboPlataformaModificaciones = new JComboBox<String>();
+	        cboPlataformaModificaciones.addItem("Elige la plataforma...");
+	        cboPlataformaModificaciones.addItem("Xbox Series");
+	        cboPlataformaModificaciones.addItem("Playstation 5");
+	        cboPlataformaModificaciones.addItem("Playstation 4");
+	        cboPlataformaModificaciones.addItem("Nintendos Switsh");
+	        cboPlataformaModificaciones.setFont(f1);
+	        cboPlataformaModificaciones.setBounds(460, 170, 176, 23);
+	        panel8.add(cboPlataformaModificaciones);
+
+	        JLabel lblCantidad3 = new JLabel("CANTIDAD:");
+	        lblCantidad3.setFont(f2);
+	        lblCantidad3.setBounds(350, 210, 300, 25);
+	        panel8.add(lblCantidad3);
+
+			spinnerCantidadModificaciones = new JSpinner();
+			spinnerCantidadModificaciones.setBounds(460, 210, 176, 23);
+			panel8.add(spinnerCantidadModificaciones);
+	        
+	        JLabel lblSemestre3 = new JLabel("PRECIO:");
+	        lblSemestre3.setFont(f2);
+	        lblSemestre3.setBounds(350, 250, 300, 25);
+	        panel8.add(lblSemestre3);
+
+	        txtPrecioModificaciones = new JTextField(10);
+	        txtPrecioModificaciones.setFont(f2);
+	        txtPrecioModificaciones.setBounds(460, 250, 176, 23);
+	        panel8.add(txtPrecioModificaciones);
+	        
+	        btnRestablecerModificaciones = new JButton("LIMPIAR");
+	        btnRestablecerModificaciones.setFont(f2);
+	        btnRestablecerModificaciones.setBounds(150, 250, 174, 30);
+	        btnRestablecerModificaciones.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                metodoRestablecer(txtTituloModificaciones, cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, txtPrecioModificaciones);
+	            }
+	        });
+	        panel8.add(btnRestablecerModificaciones);
+
+	        btnActualizar = new JButton("ACTUALIZAR");
+	        btnActualizar.setFont(f2);
+	        btnActualizar.setBounds(150, 200, 174, 30);
+	        panel8.add(btnActualizar);
 
 	        frameModificaciones.add(panel8);
 
 	        JPanel panel9 = new JPanel();
 	        panel9.setLayout(null);
 	        panel9.setPreferredSize(new Dimension(700, 190));
-	        panel9.setBounds(0, 80, 700, 80);
-
-	        JLabel lblIdJuego2 = new JLabel("ID Juego:");
-	        lblIdJuego2.setFont(f2);
-	        lblIdJuego2.setBounds(80, 30, 400, 25);
-	        panel9.add(lblIdJuego2);
-
-	        txtIdJuegoModificaciones = new JTextField(10);
-	        txtIdJuegoModificaciones.setFont(f2);
-	        txtIdJuegoModificaciones.setBounds(250, 30, 150, 23);
-	        panel9.add(txtIdJuegoModificaciones);
-
-	        btnBuscarModificaciones = new JButton(new ImageIcon("Iconos/Buscar.png"));
-	        btnBuscarModificaciones.setBounds(420, 20, 50, 45);
-	        panel9.add(btnBuscarModificaciones);
-
-	        JLabel lblLinea2 = new JLabel("_____________________________________________________________________________");
-	        lblLinea2.setFont(f2);
-	        lblLinea2.setBounds(0, 60, 630, 20);
-	        panel9.add(lblLinea2);
-
-	        frameModificaciones.add(panel9);
-
-	        JPanel panel10 = new JPanel();
-	        panel10.setLayout(null);
-	        panel10.setPreferredSize(new Dimension(700, 190));
-	        panel10.setBounds(0, 160, 700, 250);
-
-	        JLabel lblNombres3 = new JLabel("NOMBRE(S):");
-	        lblNombres3.setFont(f2);
-	        lblNombres3.setBounds(100, 30, 400, 25);
-	        panel10.add(lblNombres3);
-
-	        txtNombresModificaciones = new JTextField(10);
-	        txtNombresModificaciones.setFont(f2);
-	        txtNombresModificaciones.setBounds(280, 30, 176, 23);
-	        panel10.add(txtNombresModificaciones);
-
-	        JLabel lblApePaterno3 = new JLabel("APELLIDO PATERNO:");
-	        lblApePaterno3.setFont(f2);
-	        lblApePaterno3.setBounds(100, 70, 300, 25);
-	        panel10.add(lblApePaterno3);
-
-	        txtPrimerApModificaciones = new JTextField(10);
-	        txtPrimerApModificaciones.setFont(f2);
-	        txtPrimerApModificaciones.setBounds(280, 70, 176, 23);
-	        panel10.add(txtPrimerApModificaciones);
-
-	        JLabel lblApeMaterno3 = new JLabel("APELLIDO MATERNO:");
-	        lblApeMaterno3.setFont(f2);
-	        lblApeMaterno3.setBounds(100, 110, 300, 25);
-	        panel10.add(lblApeMaterno3);
-
-	        txtSegundoApModificaciones = new JTextField(10);
-	        txtSegundoApModificaciones.setFont(f2);
-	        txtSegundoApModificaciones.setBounds(280, 110, 176, 23);
-	        panel10.add(txtSegundoApModificaciones);
-	        
-	        JLabel lblEdad3 = new JLabel("EDAD:");
-	        lblEdad3.setFont(f2);
-	        lblEdad3.setBounds(100, 150, 300, 25);
-	        panel10.add(lblEdad3);
-
-			spinnerEdadModificaciones = new JSpinner();
-			spinnerEdadModificaciones.setBounds(280, 150, 176, 23);
-			panel10.add(spinnerEdadModificaciones);
-
-	        JLabel lblSemestre3 = new JLabel("SEMESTRE:");
-	        lblSemestre3.setFont(f2);
-	        lblSemestre3.setBounds(100, 190, 300, 25);
-	        panel10.add(lblSemestre3);
-
-	        spinnerSemestreModificaciones = new JSpinner();
-	        spinnerSemestreModificaciones.setAutoscrolls(true);
-	        spinnerSemestreModificaciones.setBounds(280, 190, 176, 23);
-	        panel10.add(spinnerSemestreModificaciones);
-
-	        JLabel lblCarrera3 = new JLabel("CARRERA:");
-	        lblCarrera3.setFont(f2);
-	        lblCarrera3.setBounds(100, 230, 300, 25);
-	        panel10.add(lblCarrera3);
-
-	        cboCarreraModificaciones = new JComboBox<String>();
-	        cboCarreraModificaciones.addItem("Elige Carrera...");
-	        cboCarreraModificaciones.addItem("Ingenieria en Sistemas Computacionales");
-	        cboCarreraModificaciones.addItem("Ingenieria en Industrias Alimentarias");
-	        cboCarreraModificaciones.addItem("Ingenieria en Mecatrónica");
-	        cboCarreraModificaciones.addItem("Lincenciatura en Administracion");
-	        cboCarreraModificaciones.addItem("Licenciatura en Contador Publico");
-	        cboCarreraModificaciones.setFont(f1);
-	        cboCarreraModificaciones.setBounds(280, 230, 175, 23);
-	        panel10.add(cboCarreraModificaciones);
-
-	        btnModificar = new JButton("MODIFICAR");
-	        btnModificar.setFont(f2);
-	        btnModificar.setBounds(480, 45, 135, 25);
-	        
-	        panel10.add(btnModificar);
-
-	        btnRestablecerModificaciones2 = new JButton("RESTABLECER");
-	        btnRestablecerModificaciones2.setFont(f2);
-	        btnRestablecerModificaciones2.setBounds(480, 170, 135, 25);
-	        btnRestablecerModificaciones2.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	            	metodoRestablecer(txtNombresModificaciones, txtIdJuegoModificaciones, txtPrimerApModificaciones, txtSegundoApModificaciones, spinnerEdadModificaciones, cboCarreraModificaciones, spinnerSemestreModificaciones);
-	            }
-	        });
-	        panel10.add(btnRestablecerModificaciones2);
-
-	        frameModificaciones.add(panel10);
-
-	        JPanel panel11 = new JPanel();
-	        panel11.setLayout(null);
-	        panel11.setPreferredSize(new Dimension(700, 190));
-	        panel11.setBounds(0, 410, 700, 152);
+	        panel9.setBounds(0, 410, 700, 152);
 
 	        tablaJuegosModificaciones = new JTable();
 	        tablaJuegosModificaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -624,9 +619,9 @@ public class VentanaInicio extends JFrame{
 
 	        scrollModificaciones = new JScrollPane(tablaJuegosModificaciones);
 	        scrollModificaciones.setBounds(5, 9, 678, 135);
-	        panel11.add(scrollModificaciones);
+	        panel9.add(scrollModificaciones);
 
-	        frameModificaciones.add(panel11);
+	        frameModificaciones.add(panel9);
 
 	        pane.add(frameModificaciones);
 
@@ -659,131 +654,123 @@ public class VentanaInicio extends JFrame{
 
 	        frameConsultas.add(panel12);
 
-	        JPanel panel13 = new JPanel();
-	        panel13.setLayout(null);
-	        panel13.setPreferredSize(new Dimension(700, 190));
-	        panel13.setBounds(0, 80, 700, 330);
-
-	        JLabel lblSeleccion = new JLabel("Selecciona criterio de busqueda:");
-	        lblSeleccion.setFont(f2);
-	        lblSeleccion.setBounds(10, 5, 300, 25);
-	        panel13.add(lblSeleccion);
-
-	        JRadioButton rbtTodos = new JRadioButton("Todos");
-	        rbtTodos.setFont(f2);
-	        rbtTodos.setBounds(20, 35, 80, 25);
-	        panel13.add(rbtTodos);
-
-	        JRadioButton rbtNombre = new JRadioButton("NOMBRE:");
-	        rbtNombre.setFont(f2);
-	        rbtNombre.setBounds(100, 35, 100, 25);
-	        panel13.add(rbtNombre);
-
-	        txtNombresConsultas = new JTextField(10);
-	        txtNombresConsultas.setFont(f2);
-	        txtNombresConsultas.setBounds(280, 35, 176, 23);
-	        panel13.add(txtNombresConsultas);
-
-	        JRadioButton rbtApePaterno = new JRadioButton("APELLIDO PATERNO:");
-	        rbtApePaterno.setFont(f2);
-	        rbtApePaterno.setBounds(100, 65, 180, 25);
-	        panel13.add(rbtApePaterno);
-
-	        txtPrimerApConsultas = new JTextField(10);
-	        txtPrimerApConsultas.setFont(f2);
-	        txtPrimerApConsultas.setBounds(280, 65, 176, 23);
-	        panel13.add(txtPrimerApConsultas);
-
-	        JRadioButton rbtApeMaterno = new JRadioButton("APELLIDO MATERNO:");
-	        rbtApeMaterno.setFont(f2);
-	        rbtApeMaterno.setBounds(100, 95, 180, 25);
-	        panel13.add(rbtApeMaterno);
-
-	        txtSegundoApConsultas = new JTextField(10);
-	        txtSegundoApConsultas.setFont(f2);
-	        txtSegundoApConsultas.setBounds(280, 95, 176, 23);
-	        panel13.add(txtSegundoApConsultas);
-
-	        JRadioButton rbtEdad = new JRadioButton("EDAD:");
-	        rbtEdad.setFont(f2);
-	        rbtEdad.setBounds(100, 125, 180, 25);
-	        panel13.add(rbtEdad);
-
-	        spinnerEdadConsultas = new JSpinner();
-	        spinnerEdadConsultas.setAutoscrolls(true);
-	        spinnerEdadConsultas.setBounds(280, 125, 176, 23);
-	        panel13.add(spinnerEdadConsultas);
+	        JPanel panel10 = new JPanel();
+	        panel10.setLayout(null);
+	        panel10.setBackground(new Color(255, 255, 255));
+	        panel10.setPreferredSize(new Dimension(700, 190));
+	        panel10.setBounds(0, 80, 700, 330);
 	        
-	        JRadioButton rbtSemestre = new JRadioButton("SEMESTRE:");
-	        rbtSemestre.setFont(f2);
-	        rbtSemestre.setBounds(100, 155, 180, 25);
-	        panel13.add(rbtSemestre);
+	        JLabel lblInformacion4 = new JLabel("Selecciona tus criterios de busqueda: ");
+	        lblInformacion4.setFont(f2);
+	        lblInformacion4.setBounds(10, 30, 630, 25);
+	        panel10.add(lblInformacion4);
+	        
+	        JLabel lblIdJuego3 = new JLabel("ID JUEGO: ");
+	        lblIdJuego3.setFont(f2);
+	        lblIdJuego3.setBounds(50, 100, 100, 25);
+	        panel10.add(lblIdJuego3);
 
-	        spinnerSemestreConsultas = new JSpinner();
-	        spinnerSemestreConsultas.setAutoscrolls(true);
-	        spinnerSemestreConsultas.setBounds(280, 155, 176, 23);
-	        panel13.add(spinnerSemestreConsultas);
+	        txtIdJuegoConsultas = new JTextField(10);
+	        txtIdJuegoConsultas.setFont(f2);
+	        txtIdJuegoConsultas.setBounds(150, 100, 176, 23);
+	        panel10.add(txtIdJuegoConsultas);
+	        
+	        JLabel lblTitulo4 = new JLabel("TITULO: ");
+	        lblTitulo4.setFont(f2);
+	        lblTitulo4.setBounds(50, 150, 100, 25);
+	        panel10.add(lblTitulo4);
 
-	        JLabel lblCarrera4 = new JLabel("Carrera:");
-	        lblCarrera4.setFont(f2);
-	        lblCarrera4.setBounds(80, 185, 180, 25);
-	        panel13.add(lblCarrera4);
+	        txtTituloConsultas = new JTextField(10);
+	        txtTituloConsultas.setFont(f2);
+	        txtTituloConsultas.setBounds(150, 150, 176, 23);
+	        panel10.add(txtTituloConsultas);
 
-	        ButtonGroup bg = new ButtonGroup();
-			JRadioButton radioISC = new JRadioButton("ISC");
-			radioISC.setFont(f2);
-			radioISC.setBounds(150, 185, 50, 25);
-			
-			bg.add(radioISC);
-			panel13.add(radioISC);
-			JRadioButton radioIM = new JRadioButton("IM");
-			radioIM.setFont(f2);
-			radioIM.setBounds(200, 185, 50, 25);
-			
-			bg.add(radioIM);
-			panel13.add(radioIM);
-			JRadioButton radioIIA = new JRadioButton("IIA");
-			radioIIA.setFont(f2);
-			radioIIA.setBounds(250, 185, 50, 25);
-			
-			bg.add(radioIIA);
-			panel13.add(radioIIA);
-			JRadioButton radioIA = new JRadioButton("LA");
-			radioIA.setFont(f2);
-			radioIA.setBounds(300, 185, 50, 25);
-			
-			bg.add(radioIA);
-			panel13.add(radioIA);
-			JRadioButton radioLC = new JRadioButton("LC");
-			radioLC.setFont(f2);
-			radioLC.setBounds(350, 185, 50, 25);
-			
-			bg.add(radioLC);
-			panel13.add(radioLC);
+	        JLabel lblGenero4 = new JLabel("GENERO:");
+	        lblGenero2.setFont(f2);
+	        lblGenero2.setBounds(350, 90, 300, 25);
+	        panel5.add(lblGenero2);
 
-	        btnBuscarConsultas = new JButton(new ImageIcon("Iconos/Buscar.png"));
-	        btnBuscarConsultas.setBounds(480, 85, 135, 45);
-	        btnBuscarConsultas.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	               
-	            	
-	            }
-	        });
-	        panel13.add(btnBuscarConsultas);
+	        cboGeneroConsultas = new JComboBox<String>();
+	        cboGeneroConsultas.addItem("Elige el genero...");
+	        cboGeneroConsultas.addItem("Disparos");
+	        cboGeneroConsultas.addItem("Terror");
+	        cboGeneroConsultas.addItem("Aventura");
+	        cboGeneroConsultas.addItem("Estrategia");
+	        cboGeneroConsultas.addItem("Peleas");
+	        cboGeneroConsultas.addItem("Deportes");
+	        cboGeneroConsultas.addItem("Carreras");
+	        cboGeneroConsultas.setFont(f1);
+	        cboGeneroConsultas.setBounds(460, 90, 176, 23);
+	        panel5.add(cboGeneroConsultas);
 
-	        btnRestablecerConsultas = new JButton("RESTABLECER");
+	        JLabel lblEstudio4 = new JLabel("ESTUDIO:");
+	        lblEstudio4.setFont(f2);
+	        lblEstudio4.setBounds(350, 130, 300, 25);
+	        panel5.add(lblEstudio4);
+	        
+	        cboEstudioConsultas = new JComboBox<String>();
+	        cboEstudioConsultas.addItem("Elige el estudio...");
+	        cboEstudioConsultas.addItem("Ubisoft");
+	        cboEstudioConsultas.addItem("Capcom");
+	        cboEstudioConsultas.addItem("Epic Games");
+	        cboEstudioConsultas.addItem("Electronic Arts");
+	        cboEstudioConsultas.addItem("Microsoft Studios");
+	        cboEstudioConsultas.addItem("Game Freak");
+	        cboEstudioConsultas.setFont(f1);
+	        cboEstudioConsultas.setBounds(460, 130, 176, 23);
+	        panel5.add(cboEstudioConsultas);
+
+	        JLabel lblPlataforma4 = new JLabel("PLATAFORMA:");
+	        lblPlataforma4.setFont(f2);
+	        lblPlataforma4.setBounds(350, 170, 300, 25);
+	        panel5.add(lblPlataforma4);
+
+	        cboPlataformaConsultas = new JComboBox<String>();
+	        cboPlataformaConsultas.addItem("Elige la plataforma...");
+	        cboPlataformaConsultas.addItem("Xbox Series");
+	        cboPlataformaConsultas.addItem("Playstation 5");
+	        cboPlataformaConsultas.addItem("Playstation 4");
+	        cboPlataformaConsultas.addItem("Nintendos Switsh");
+	        cboPlataformaConsultas.setFont(f1);
+	        cboPlataformaConsultas.setBounds(460, 170, 176, 23);
+	        panel5.add(cboPlataformaConsultas);
+
+	        JLabel lblCantidad4 = new JLabel("CANTIDAD:");
+	        lblCantidad4.setFont(f2);
+	        lblCantidad4.setBounds(350, 210, 300, 25);
+	        panel5.add(lblCantidad4);
+
+			spinnerCantidadConsultas = new JSpinner();
+			spinnerCantidadConsultas.setBounds(460, 210, 176, 23);
+			panel5.add(spinnerCantidadConsultas);
+	        
+	        JLabel lblSemestre4 = new JLabel("PRECIO:");
+	        lblSemestre4.setFont(f2);
+	        lblSemestre4.setBounds(350, 250, 300, 25);
+	        panel5.add(lblSemestre4);
+
+	        txtPrecioConsultas = new JTextField(10);
+	        txtPrecioConsultas.setFont(f2);
+	        txtPrecioConsultas.setBounds(460, 250, 176, 23);
+	        panel5.add(txtPrecioConsultas);
+	        
+	        btnRestablecerConsultas = new JButton("LIMPIAR");
 	        btnRestablecerConsultas.setFont(f2);
-	        btnRestablecerConsultas.setBounds(480, 170, 135, 35);
+	        btnRestablecerConsultas.setBounds(150, 250, 174, 30);
 	        btnRestablecerConsultas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	metodoRestablecer(txtNombresConsultas, txtNumControlConsultas, txtPrimerApConsultas, txtSegundoApConsultas, spinnerEdadConsultas, cboCarreraConsultas, spinnerSemestreConsultas);
+	                metodoRestablecer(txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, txtPrecioBajas);
 	            }
 	        });
-	        panel13.add(btnRestablecerConsultas);
+	        panel5.add(btnRestablecerConsultas);
 
-	        frameConsultas.add(panel13);
+	        btnBuscar = new JButton("Buscar");
+	        btnBuscar.setFont(f2);
+	        btnBuscar.setBounds(150, 200, 174, 30);
+	        panel5.add(btnBuscar);
+
+	        frameBajas.add(panel5);
 
 	        JPanel panel14 = new JPanel();
 	        panel14.setLayout(null);
