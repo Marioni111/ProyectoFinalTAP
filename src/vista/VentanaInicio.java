@@ -66,8 +66,8 @@ public class VentanaInicio extends JFrame{
 	        //-------------------------------------- MENU PRINCIPAL ----------------------------------
 
 	        JMenuBar menuBar = new JMenuBar();
-	        JMenu menu = new JMenu("Menu Juegos");
-	        JMenuItem menuCon = new JMenuItem("Buscar Juego");
+	        JMenu menu = new JMenu("Menu juegos");
+	        JMenuItem menuCon = new JMenuItem("Buscar Juegos");
 	        menuCon.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK));
 	        menuCon.addActionListener(new ActionListener() {
 
@@ -632,63 +632,63 @@ public class VentanaInicio extends JFrame{
 	        frameConsultas.setDefaultCloseOperation(HIDE_ON_CLOSE);
 	        frameConsultas.setLayout(null);
 	        frameConsultas.setSize(700, 595);
-	        frameConsultas.setTitle("CONSULTAS");
+	        frameConsultas.setTitle("Buscar Juegos");
 	        frameConsultas.setClosable(true);
 	        frameConsultas.setIconifiable(true);
 	        frameConsultas.setMaximizable(true);
 	        frameConsultas.setResizable(true);
 	        frameConsultas.setVisible(false);
 
-	        JPanel panel12 = new JPanel();
-	        panel12.setBackground(new Color(0, 0, 255));
-	        panel12.setLayout(null);
-	        panel12.setPreferredSize(new Dimension(700, 190));
-	        panel12.setBounds(0, 0, 700, 80);
+	        JPanel panel10 = new JPanel();
+	        panel10.setBackground(new Color(115, 170, 249));
+	        panel10.setLayout(null);
+	        panel10.setPreferredSize(new Dimension(700, 190));
+	        panel10.setBounds(0, 0, 700, 80);
 
-	        JLabel lbl4 = new JLabel("CONSULTAS ALUMNOS");
+	        JLabel lbl4 = new JLabel("BUSCAR JUEGOS");
 	        lbl4.setFont(new Font("Arial", Font.BOLD, 24));
 	        lbl4.setForeground(new Color(255, 255, 255));
-	        lbl4.setBounds(30, 30, 400, 20);
+	        lbl4.setBounds(30, 30, 400, 30);
 
-	        panel12.add(lbl4);
+	        panel10.add(lbl4);
 
-	        frameConsultas.add(panel12);
+	        frameConsultas.add(panel10);
 
-	        JPanel panel10 = new JPanel();
-	        panel10.setLayout(null);
-	        panel10.setBackground(new Color(255, 255, 255));
-	        panel10.setPreferredSize(new Dimension(700, 190));
-	        panel10.setBounds(0, 80, 700, 330);
+	        JPanel panel11 = new JPanel();
+	        panel11.setLayout(null);
+	        panel11.setBackground(new Color(255, 255, 255));
+	        panel11.setPreferredSize(new Dimension(700, 190));
+	        panel11.setBounds(0, 80, 700, 330);
 	        
 	        JLabel lblInformacion4 = new JLabel("Selecciona tus criterios de busqueda: ");
 	        lblInformacion4.setFont(f2);
 	        lblInformacion4.setBounds(10, 30, 630, 25);
-	        panel10.add(lblInformacion4);
+	        panel11.add(lblInformacion4);
 	        
 	        JLabel lblIdJuego3 = new JLabel("ID JUEGO: ");
 	        lblIdJuego3.setFont(f2);
 	        lblIdJuego3.setBounds(50, 100, 100, 25);
-	        panel10.add(lblIdJuego3);
+	        panel11.add(lblIdJuego3);
 
 	        txtIdJuegoConsultas = new JTextField(10);
 	        txtIdJuegoConsultas.setFont(f2);
 	        txtIdJuegoConsultas.setBounds(150, 100, 176, 23);
-	        panel10.add(txtIdJuegoConsultas);
+	        panel11.add(txtIdJuegoConsultas);
 	        
 	        JLabel lblTitulo4 = new JLabel("TITULO: ");
 	        lblTitulo4.setFont(f2);
 	        lblTitulo4.setBounds(50, 150, 100, 25);
-	        panel10.add(lblTitulo4);
+	        panel11.add(lblTitulo4);
 
 	        txtTituloConsultas = new JTextField(10);
 	        txtTituloConsultas.setFont(f2);
 	        txtTituloConsultas.setBounds(150, 150, 176, 23);
-	        panel10.add(txtTituloConsultas);
+	        panel11.add(txtTituloConsultas);
 
 	        JLabel lblGenero4 = new JLabel("GENERO:");
-	        lblGenero2.setFont(f2);
-	        lblGenero2.setBounds(350, 90, 300, 25);
-	        panel5.add(lblGenero2);
+	        lblGenero4.setFont(f2);
+	        lblGenero4.setBounds(350, 90, 300, 25);
+	        panel11.add(lblGenero4);
 
 	        cboGeneroConsultas = new JComboBox<String>();
 	        cboGeneroConsultas.addItem("Elige el genero...");
@@ -701,12 +701,12 @@ public class VentanaInicio extends JFrame{
 	        cboGeneroConsultas.addItem("Carreras");
 	        cboGeneroConsultas.setFont(f1);
 	        cboGeneroConsultas.setBounds(460, 90, 176, 23);
-	        panel5.add(cboGeneroConsultas);
+	        panel11.add(cboGeneroConsultas);
 
 	        JLabel lblEstudio4 = new JLabel("ESTUDIO:");
 	        lblEstudio4.setFont(f2);
 	        lblEstudio4.setBounds(350, 130, 300, 25);
-	        panel5.add(lblEstudio4);
+	        panel11.add(lblEstudio4);
 	        
 	        cboEstudioConsultas = new JComboBox<String>();
 	        cboEstudioConsultas.addItem("Elige el estudio...");
@@ -718,12 +718,12 @@ public class VentanaInicio extends JFrame{
 	        cboEstudioConsultas.addItem("Game Freak");
 	        cboEstudioConsultas.setFont(f1);
 	        cboEstudioConsultas.setBounds(460, 130, 176, 23);
-	        panel5.add(cboEstudioConsultas);
+	        panel11.add(cboEstudioConsultas);
 
 	        JLabel lblPlataforma4 = new JLabel("PLATAFORMA:");
 	        lblPlataforma4.setFont(f2);
 	        lblPlataforma4.setBounds(350, 170, 300, 25);
-	        panel5.add(lblPlataforma4);
+	        panel11.add(lblPlataforma4);
 
 	        cboPlataformaConsultas = new JComboBox<String>();
 	        cboPlataformaConsultas.addItem("Elige la plataforma...");
@@ -733,26 +733,26 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaConsultas.addItem("Nintendos Switsh");
 	        cboPlataformaConsultas.setFont(f1);
 	        cboPlataformaConsultas.setBounds(460, 170, 176, 23);
-	        panel5.add(cboPlataformaConsultas);
+	        panel11.add(cboPlataformaConsultas);
 
 	        JLabel lblCantidad4 = new JLabel("CANTIDAD:");
 	        lblCantidad4.setFont(f2);
 	        lblCantidad4.setBounds(350, 210, 300, 25);
-	        panel5.add(lblCantidad4);
+	        panel11.add(lblCantidad4);
 
 			spinnerCantidadConsultas = new JSpinner();
 			spinnerCantidadConsultas.setBounds(460, 210, 176, 23);
-			panel5.add(spinnerCantidadConsultas);
+			panel11.add(spinnerCantidadConsultas);
 	        
 	        JLabel lblSemestre4 = new JLabel("PRECIO:");
 	        lblSemestre4.setFont(f2);
 	        lblSemestre4.setBounds(350, 250, 300, 25);
-	        panel5.add(lblSemestre4);
+	        panel11.add(lblSemestre4);
 
 	        txtPrecioConsultas = new JTextField(10);
 	        txtPrecioConsultas.setFont(f2);
 	        txtPrecioConsultas.setBounds(460, 250, 176, 23);
-	        panel5.add(txtPrecioConsultas);
+	        panel11.add(txtPrecioConsultas);
 	        
 	        btnRestablecerConsultas = new JButton("LIMPIAR");
 	        btnRestablecerConsultas.setFont(f2);
@@ -763,19 +763,19 @@ public class VentanaInicio extends JFrame{
 	                metodoRestablecer(txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, txtPrecioBajas);
 	            }
 	        });
-	        panel5.add(btnRestablecerConsultas);
+	        panel11.add(btnRestablecerConsultas);
 
 	        btnBuscar = new JButton("Buscar");
 	        btnBuscar.setFont(f2);
 	        btnBuscar.setBounds(150, 200, 174, 30);
-	        panel5.add(btnBuscar);
+	        panel11.add(btnBuscar);
 
-	        frameBajas.add(panel5);
+	        frameConsultas.add(panel11);
 
-	        JPanel panel14 = new JPanel();
-	        panel14.setLayout(null);
-	        panel14.setPreferredSize(new Dimension(700, 190));
-	        panel14.setBounds(0, 410, 700, 152);
+	        JPanel panel12 = new JPanel();
+	        panel12.setLayout(null);
+	        panel12.setPreferredSize(new Dimension(700, 190));
+	        panel12.setBounds(0, 410, 700, 152);
 
 	        tablaJuegosConsultas = new JTable();
 	        tablaJuegosConsultas.setModel(new javax.swing.table.DefaultTableModel(
@@ -785,9 +785,9 @@ public class VentanaInicio extends JFrame{
 
 	        scrollModificaciones = new JScrollPane(tablaJuegosConsultas);
 	        scrollModificaciones.setBounds(5, 9, 678, 135);
-	        panel14.add(scrollModificaciones);
+	        panel12.add(scrollModificaciones);
 
-	        frameConsultas.add(panel14);
+	        frameConsultas.add(panel12);
 
 	        pane.add(frameConsultas);
 
