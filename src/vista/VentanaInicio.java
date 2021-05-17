@@ -660,14 +660,14 @@ public class VentanaInicio extends JFrame{
 	        panel11.setPreferredSize(new Dimension(700, 190));
 	        panel11.setBounds(0, 80, 700, 330);
 	        
-	        JLabel lblInformacion4 = new JLabel("Selecciona tus criterios de busqueda: ");
+	        JLabel lblInformacion4 = new JLabel("SELECCIONA TUS CRITERIOS DE BUSQUEDA: ");
 	        lblInformacion4.setFont(f2);
 	        lblInformacion4.setBounds(10, 30, 630, 25);
 	        panel11.add(lblInformacion4);
 	        
 	        JLabel lblIdJuego3 = new JLabel("ID JUEGO: ");
 	        lblIdJuego3.setFont(f2);
-	        lblIdJuego3.setBounds(50, 100, 100, 25);
+	        lblIdJuego3.setBounds(40, 100, 100, 25);
 	        panel11.add(lblIdJuego3);
 
 	        txtIdJuegoConsultas = new JTextField(10);
@@ -677,17 +677,17 @@ public class VentanaInicio extends JFrame{
 	        
 	        JLabel lblTitulo4 = new JLabel("TITULO: ");
 	        lblTitulo4.setFont(f2);
-	        lblTitulo4.setBounds(50, 150, 100, 25);
+	        lblTitulo4.setBounds(350, 100, 100, 25);
 	        panel11.add(lblTitulo4);
 
 	        txtTituloConsultas = new JTextField(10);
 	        txtTituloConsultas.setFont(f2);
-	        txtTituloConsultas.setBounds(150, 150, 176, 23);
+	        txtTituloConsultas.setBounds(450, 100, 176, 23);
 	        panel11.add(txtTituloConsultas);
 
 	        JLabel lblGenero4 = new JLabel("GENERO:");
 	        lblGenero4.setFont(f2);
-	        lblGenero4.setBounds(350, 90, 300, 25);
+	        lblGenero4.setBounds(40, 150, 300, 25);
 	        panel11.add(lblGenero4);
 
 	        cboGeneroConsultas = new JComboBox<String>();
@@ -700,12 +700,12 @@ public class VentanaInicio extends JFrame{
 	        cboGeneroConsultas.addItem("Deportes");
 	        cboGeneroConsultas.addItem("Carreras");
 	        cboGeneroConsultas.setFont(f1);
-	        cboGeneroConsultas.setBounds(460, 90, 176, 23);
+	        cboGeneroConsultas.setBounds(150, 150, 176, 23);
 	        panel11.add(cboGeneroConsultas);
 
 	        JLabel lblEstudio4 = new JLabel("ESTUDIO:");
 	        lblEstudio4.setFont(f2);
-	        lblEstudio4.setBounds(350, 130, 300, 25);
+	        lblEstudio4.setBounds(350, 150, 300, 25);
 	        panel11.add(lblEstudio4);
 	        
 	        cboEstudioConsultas = new JComboBox<String>();
@@ -717,12 +717,12 @@ public class VentanaInicio extends JFrame{
 	        cboEstudioConsultas.addItem("Microsoft Studios");
 	        cboEstudioConsultas.addItem("Game Freak");
 	        cboEstudioConsultas.setFont(f1);
-	        cboEstudioConsultas.setBounds(460, 130, 176, 23);
+	        cboEstudioConsultas.setBounds(450, 150, 176, 23);
 	        panel11.add(cboEstudioConsultas);
 
 	        JLabel lblPlataforma4 = new JLabel("PLATAFORMA:");
 	        lblPlataforma4.setFont(f2);
-	        lblPlataforma4.setBounds(350, 170, 300, 25);
+	        lblPlataforma4.setBounds(40, 200, 300, 25);
 	        panel11.add(lblPlataforma4);
 
 	        cboPlataformaConsultas = new JComboBox<String>();
@@ -732,31 +732,31 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaConsultas.addItem("Playstation 4");
 	        cboPlataformaConsultas.addItem("Nintendos Switsh");
 	        cboPlataformaConsultas.setFont(f1);
-	        cboPlataformaConsultas.setBounds(460, 170, 176, 23);
+	        cboPlataformaConsultas.setBounds(150, 200, 176, 23);
 	        panel11.add(cboPlataformaConsultas);
 
 	        JLabel lblCantidad4 = new JLabel("CANTIDAD:");
 	        lblCantidad4.setFont(f2);
-	        lblCantidad4.setBounds(350, 210, 300, 25);
+	        lblCantidad4.setBounds(350, 200, 300, 25);
 	        panel11.add(lblCantidad4);
 
 			spinnerCantidadConsultas = new JSpinner();
-			spinnerCantidadConsultas.setBounds(460, 210, 176, 23);
+			spinnerCantidadConsultas.setBounds(450, 200, 176, 23);
 			panel11.add(spinnerCantidadConsultas);
 	        
 	        JLabel lblSemestre4 = new JLabel("PRECIO:");
 	        lblSemestre4.setFont(f2);
-	        lblSemestre4.setBounds(350, 250, 300, 25);
+	        lblSemestre4.setBounds(40, 250, 300, 25);
 	        panel11.add(lblSemestre4);
 
 	        txtPrecioConsultas = new JTextField(10);
 	        txtPrecioConsultas.setFont(f2);
-	        txtPrecioConsultas.setBounds(460, 250, 176, 23);
+	        txtPrecioConsultas.setBounds(150, 250, 176, 23);
 	        panel11.add(txtPrecioConsultas);
 	        
 	        btnRestablecerConsultas = new JButton("LIMPIAR");
 	        btnRestablecerConsultas.setFont(f2);
-	        btnRestablecerConsultas.setBounds(150, 250, 174, 30);
+	        btnRestablecerConsultas.setBounds(500, 250, 140, 25);
 	        btnRestablecerConsultas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -765,9 +765,9 @@ public class VentanaInicio extends JFrame{
 	        });
 	        panel11.add(btnRestablecerConsultas);
 
-	        btnBuscar = new JButton("Buscar");
+	        btnBuscar = new JButton("BUSCAR");
 	        btnBuscar.setFont(f2);
-	        btnBuscar.setBounds(150, 200, 174, 30);
+	        btnBuscar.setBounds(350, 250, 140, 25);
 	        panel11.add(btnBuscar);
 
 	        frameConsultas.add(panel11);
