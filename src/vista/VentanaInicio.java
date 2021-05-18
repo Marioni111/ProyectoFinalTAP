@@ -755,8 +755,6 @@ public class VentanaInicio extends JFrame{
 	        
 	        spinnerPrecioConsultas = new JSpinner();
 	        spinnerPrecioConsultas.setBounds(150, 250, 176, 23);
-	        spinnerPrecioConsultas.isMinimumSizeSet();
-	        
 			panel11.add(spinnerPrecioConsultas);
 	        
 	        btnRestablecerConsultas = new JButton("LIMPIAR");
