@@ -26,9 +26,9 @@ public class VentanaInicio extends JFrame{
 	 
 	 JInternalFrame frameAltas, frameBajas, frameModificaciones, frameConsultas;
 	 
-	 JTextField txtTituloAltas, txtPrecioAltas,
-	 			txtIdJuegoBajas, txtTituloBajas, txtPrecioBajas,
-	 			txtIdJuegoModificaciones, txtTituloModificaciones, txtPrecioModificaciones,
+	 JTextField txtTituloAltas,
+	 			txtIdJuegoBajas, txtTituloBajas,
+	 			txtIdJuegoModificaciones, txtTituloModificaciones,
 	 			txtIdJuegoConsultas, txtTituloConsultas;
 	 
 	 JButton btnAgregarAltas, btnRestablecerAltas, 
@@ -45,9 +45,9 @@ public class VentanaInicio extends JFrame{
 	 
 	 JTable tablaJuegosAltas, tablaJuegosBajas, tablaJuegosModificaciones, tablaJuegosConsultas;
 	 
-	 JSpinner spinnerCantidadAltas, 
-	 		  spinnerCantidadBajas, 
-	 		  spinnerCantidadModificaciones, 
+	 JSpinner spinnerCantidadAltas, spinnerPrecioAltas,
+	 		  spinnerCantidadBajas, spinnerPrecioBajas,
+	 		  spinnerCantidadModificaciones, spinnerPrecioModificaciones, 
 	 		  spinnerCantidadConsultas, spinnerPrecioConsultas;
 	 		  
 	 JuegoDAO aDAO;
@@ -257,10 +257,9 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre.setBounds(180, 250, 300, 25);
 	        panel2.add(lblSemestre);
 
-	        txtPrecioAltas = new JTextField(10);
-	        txtPrecioAltas.setFont(f2);
-	        txtPrecioAltas.setBounds(330, 250, 176, 23);
-	        panel2.add(txtPrecioAltas);
+	        spinnerPrecioAltas = new JSpinner();
+	        spinnerPrecioAltas.setBounds(330, 250, 176, 23);
+			panel2.add(spinnerPrecioAltas);
 	        
 	        btnRestablecerAltas = new JButton("LIMPIAR");
 	        btnRestablecerAltas.setFont(f2);
@@ -268,7 +267,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerAltas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtTituloAltas, cboGeneroAltas, cboEstudioAltas, cboPlataformaAltas, spinnerCantidadAltas, txtPrecioAltas);
+	                metodoRestablecer(txtTituloAltas, cboGeneroAltas, cboEstudioAltas, cboPlataformaAltas, spinnerCantidadAltas, spinnerPrecioAltas);
 	            }
 	        });
 	        panel2.add(btnRestablecerAltas);
@@ -276,6 +275,14 @@ public class VentanaInicio extends JFrame{
 	        btnAgregarAltas = new JButton("AGREGAR");
 	        btnAgregarAltas.setFont(f2);
 	        btnAgregarAltas.setBounds(330, 290, 174, 25);
+	        btnAgregarAltas.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					actualizarTabla(tablaJuegosModificaciones, "select*from juegos;");
+				}
+			});
 	        panel2.add(btnAgregarAltas);
 
 	        frameAltas.add(panel2);
@@ -421,11 +428,10 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre2.setFont(f2);
 	        lblSemestre2.setBounds(350, 250, 300, 25);
 	        panel5.add(lblSemestre2);
-
-	        txtPrecioBajas = new JTextField(10);
-	        txtPrecioBajas.setFont(f2);
-	        txtPrecioBajas.setBounds(460, 250, 176, 23);
-	        panel5.add(txtPrecioBajas);
+	        
+	        spinnerPrecioBajas = new JSpinner();
+	        spinnerPrecioBajas.setBounds(460, 250, 176, 23);
+			panel5.add(spinnerPrecioBajas);
 	        
 	        btnRestablecerBajas = new JButton("LIMPIAR");
 	        btnRestablecerBajas.setFont(f2);
@@ -433,7 +439,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerBajas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, txtPrecioBajas);
+	                metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
 	            }
 	        });
 	        panel5.add(btnRestablecerBajas);
@@ -586,11 +592,10 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre3.setFont(f2);
 	        lblSemestre3.setBounds(350, 250, 300, 25);
 	        panel8.add(lblSemestre3);
-
-	        txtPrecioModificaciones = new JTextField(10);
-	        txtPrecioModificaciones.setFont(f2);
-	        txtPrecioModificaciones.setBounds(460, 250, 176, 23);
-	        panel8.add(txtPrecioModificaciones);
+	        
+	        spinnerPrecioModificaciones = new JSpinner();
+	        spinnerPrecioModificaciones.setBounds(460, 250, 176, 23);
+			panel8.add(spinnerPrecioModificaciones);
 	        
 	        btnRestablecerModificaciones = new JButton("LIMPIAR");
 	        btnRestablecerModificaciones.setFont(f2);
@@ -598,7 +603,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerModificaciones.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtTituloModificaciones, cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, txtPrecioModificaciones);
+	                metodoRestablecer(txtIdJuegoModificaciones, txtTituloModificaciones, cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, spinnerPrecioModificaciones);
 	            }
 	        });
 	        panel8.add(btnRestablecerModificaciones);
@@ -763,7 +768,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerConsultas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, txtPrecioBajas);
+	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, cboEstudioConsultas, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
 	            }
 	        });
 	        panel11.add(btnRestablecerConsultas);
