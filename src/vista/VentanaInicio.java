@@ -812,10 +812,6 @@ public class VentanaInicio extends JFrame{
 	        add(pane, BorderLayout.CENTER);
 	}
 	 
-	 public void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {                                      
-         
-     } 
-	 
 	 public void actualizarTabla(JTable tabla,String com){
 
 			String controlador = "com.mysql.cj.jdbc.Driver";
