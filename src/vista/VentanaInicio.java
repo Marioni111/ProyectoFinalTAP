@@ -6,7 +6,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class VentanaInicio extends JFrame{
 	 JTextField txtTituloAltas, txtPrecioAltas,
 	 			txtIdJuegoBajas, txtTituloBajas, txtPrecioBajas,
 	 			txtIdJuegoModificaciones, txtTituloModificaciones, txtPrecioModificaciones,
-	 			txtIdJuegoConsultas, txtTituloConsultas, txtPrecioConsultas;
+	 			txtIdJuegoConsultas, txtTituloConsultas;
 	 
 	 JButton btnAgregarAltas, btnRestablecerAltas, 
 	         btnEliminar, btnRestablecerBajas,
@@ -46,11 +48,13 @@ public class VentanaInicio extends JFrame{
 	 JSpinner spinnerCantidadAltas, 
 	 		  spinnerCantidadBajas, 
 	 		  spinnerCantidadModificaciones, 
-	 		  spinnerCantidadConsultas;
+	 		  spinnerCantidadConsultas, spinnerPrecioConsultas;
 	 		  
 	 JuegoDAO aDAO;
 	 
 	 ResultSetTableModel modeloDatos = null;
+	 
+	 DecimalFormat df = new DecimalFormat("#.##");
 	 
 	 public void crearComponentes() {
 	        
@@ -74,7 +78,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	
-	            	actualizarTabla();
+	            	actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(false);
@@ -92,7 +96,7 @@ public class VentanaInicio extends JFrame{
 	        	@Override
 				public void actionPerformed(ActionEvent arg0) {
 					
-	        		actualizarTabla();
+	        		actualizarTabla(tablaJuegosAltas, "select*from juegos;");
 	        		
 	        		frameAltas.setVisible(true);
 					frameBajas.setVisible(false);
@@ -109,7 +113,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	
-	            	actualizarTabla();
+	            	actualizarTabla(tablaJuegosModificaciones, "select*from juegos;");
 	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(false);
@@ -126,7 +130,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                
-	            	actualizarTabla();
+	            	actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(true);
@@ -748,11 +752,12 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre4.setFont(f2);
 	        lblSemestre4.setBounds(40, 250, 300, 25);
 	        panel11.add(lblSemestre4);
-
-	        txtPrecioConsultas = new JTextField(10);
-	        txtPrecioConsultas.setFont(f2);
-	        txtPrecioConsultas.setBounds(150, 250, 176, 23);
-	        panel11.add(txtPrecioConsultas);
+	        
+	        spinnerPrecioConsultas = new JSpinner();
+	        spinnerPrecioConsultas.setBounds(150, 250, 176, 23);
+	        spinnerPrecioConsultas.isMinimumSizeSet();
+	        
+			panel11.add(spinnerPrecioConsultas);
 	        
 	        btnRestablecerConsultas = new JButton("LIMPIAR");
 	        btnRestablecerConsultas.setFont(f2);
@@ -768,6 +773,19 @@ public class VentanaInicio extends JFrame{
 	        btnBuscar = new JButton("BUSCAR");
 	        btnBuscar.setFont(f2);
 	        btnBuscar.setBounds(350, 250, 140, 25);
+	        btnBuscar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like "+ "'" + txtIdJuegoConsultas.getText()+
+							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
+							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
+							  "%' OR estudio like '" + cboEstudioConsultas.getSelectedItem() + 
+							  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
+							  "%' OR cantidad = " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
+							    " OR precio = " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
+				}
+			});
 	        panel11.add(btnBuscar);
 
 	        frameConsultas.add(panel11);
@@ -796,15 +814,18 @@ public class VentanaInicio extends JFrame{
 	        add(pane, BorderLayout.CENTER);
 	}
 	 
-	 public void actualizarTabla(){
+	 public void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {                                      
+         
+     } 
+	 
+	 public void actualizarTabla(JTable tabla,String com){
 
 			String controlador = "com.mysql.cj.jdbc.Driver";
     		String url = "jdbc:mysql://localhost:3306/TiendaDeVideoJuegos";
-    		String consulta = "SELECT * FROM juegos";
 
 			ResultSetTableModel modelo = null;
 			try {
-				modelo = new ResultSetTableModel(controlador, url, consulta);
+				modelo = new ResultSetTableModel(controlador, url, com);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			} catch (ClassNotFoundException e1) {
