@@ -851,6 +851,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, cboEstudioConsultas, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
+	                actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            }
 	        });
 	        panel11.add(btnRestablecerConsultas);
@@ -862,13 +863,21 @@ public class VentanaInicio extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+					if(txtIdJuegoConsultas.getText().length()<=1) {
+						txtIdJuegoConsultas.setText("  ");
+					}
+					if(txtTituloConsultas.getText().length()<=1) {
+						txtTituloConsultas.setText("  ");
+					}
+					
 					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
 							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
 							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
 							  "%' OR estudio like '" + cboEstudioConsultas.getSelectedItem() + 
 							  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
 							  "%' OR cantidad = " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
-							    " OR precio = " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
+							    " OR precio <= " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
 				}
 			});
 	        panel11.add(btnBuscar);
