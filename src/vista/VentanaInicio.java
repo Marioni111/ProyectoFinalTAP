@@ -21,17 +21,21 @@ import modelo.Juego;
 public class VentanaInicio extends JFrame{
 	
 	 public VentanaInicio() {
-	        crearComponentes();
+
+		 crearComponentes();
+		 
 	    }
 	 
-	 JInternalFrame frameAltas, frameBajas, frameModificaciones, frameConsultas;
+	 JInternalFrame frameInicioSesion, frameAltas, frameBajas, frameModificaciones, frameConsultas;
 	 
-	 JTextField txtTituloAltas,
+	 JTextField txtUsuario, txtPassword,
+	 			txtTituloAltas,
 	 			txtIdJuegoBajas, txtTituloBajas,
 	 			txtIdJuegoModificaciones, txtTituloModificaciones,
 	 			txtIdJuegoConsultas, txtTituloConsultas;
 	 
-	 JButton btnAgregarAltas, btnRestablecerAltas, 
+	 JButton btnEntrar, btnCerrar,
+	 		 btnAgregarAltas, btnRestablecerAltas, 
 	         btnEliminar, btnRestablecerBajas,
 	         btnActualizar, btnRestablecerModificaciones,
 	         btnBuscar, btnRestablecerConsultas;
@@ -56,15 +60,18 @@ public class VentanaInicio extends JFrame{
 	 
 	 DecimalFormat df = new DecimalFormat("#.##");
 	 
+	 Font f1 = new Font("Arial", Font.ITALIC, 12);
+	 Font f2 = new Font("Arial", Font.CENTER_BASELINE, 14);
+	 
 	 public void crearComponentes() {
 	        
-		    getContentPane().setLayout(new BorderLayout());
-	        setDefaultCloseOperation(EXIT_ON_CLOSE);
-	        setTitle("Control de inventario de Iguan Games");
-	        setSize(710, 660);
-	        setLocationRelativeTo(null);
-	        setVisible(true);
-
+		 	JFrame ventana = new JFrame();
+		 	ventana.getContentPane().setLayout(new BorderLayout());
+		 	ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		 	ventana.setTitle("Control de inventario de Iguan Games");
+		 	ventana.setSize(710, 660);
+		 	ventana.setLocationRelativeTo(null);
+		 	
 	        JDesktopPane pane = new JDesktopPane();
 
 	        //-------------------------------------- MENU PRINCIPAL ----------------------------------
@@ -141,10 +148,87 @@ public class VentanaInicio extends JFrame{
 	        menu.add(menuBaj);
 	        
 	        menuBar.add(menu);
-	        setJMenuBar(menuBar);
+	        ventana.setJMenuBar(menuBar);
 
 	        //--------------------------------------- FIN DE MENU -------------------------------------
 	        
+	        //--------------------------------------- Menu Inicio -------------------------------------
+	        
+	        JFrame inicio = new JFrame();
+		 	inicio.getContentPane().setLayout(new FlowLayout());
+		 	inicio.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		 	inicio.setTitle("Inicio de sesion");
+		 	inicio.setSize(300, 500);
+		 	inicio.setLocationRelativeTo(null);
+		 	inicio.setVisible(true);
+	        
+	        JPanel panelInicioSesion = new JPanel();
+	        panelInicioSesion.setBackground(new Color(255, 255, 255));
+	        panelInicioSesion.setLayout(null);
+	        panelInicioSesion.setPreferredSize(new Dimension(300, 500));
+			
+	        JLabel lblIniciarSesion = new JLabel("INICIAR SESIÓN");
+	        lblIniciarSesion.setForeground(new Color(115, 170, 249));
+	        lblIniciarSesion.setFont(f2);
+	        lblIniciarSesion.setBounds(100, 40, 400, 25);
+	        panelInicioSesion.add(lblIniciarSesion);
+	        
+	        btnCerrar = new JButton(new ImageIcon("Iconos/InicioSesion.png"));
+	        btnCerrar.setBounds(105, 80, 100, 100);
+	        panelInicioSesion.add(btnCerrar);
+	        
+	        JLabel lblUsuario = new JLabel("USUARIO: ");
+	        lblUsuario.setFont(f2);
+	        lblUsuario.setBounds(120, 190, 400, 25);
+	        panelInicioSesion.add(lblUsuario);
+
+	        txtUsuario = new JTextField(10);
+	        txtUsuario.setFont(f2);
+	        txtUsuario.setBounds(70, 220, 176, 23);
+	        panelInicioSesion.add(txtUsuario);
+	        
+	        JLabel lblPassword = new JLabel("CONTRASEÑA: ");
+	        lblPassword.setFont(f2);
+	        lblPassword.setBounds(105, 250, 400, 25);
+	        panelInicioSesion.add(lblPassword);
+
+	        txtPassword = new JTextField(10);
+	        txtPassword.setFont(f2);
+	        txtPassword.setBounds(70, 280, 176, 23);
+	        panelInicioSesion.add(txtPassword);
+	        
+	        btnEntrar = new JButton("ENTRAR");
+	        btnEntrar.setFont(f2);
+	        btnEntrar.setBounds(50, 320, 100, 25);
+	        btnEntrar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					inicio.setVisible(false);
+					ventana.setVisible(true);
+				}
+			});
+	        panelInicioSesion.add(btnEntrar);
+	        
+	        btnCerrar = new JButton("CERRAR");
+	        btnCerrar.setFont(f2);
+	        btnCerrar.setBounds(160, 320, 100, 25);
+	        btnCerrar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					inicio.setVisible(false);
+					
+				}
+			});
+	        panelInicioSesion.add(btnCerrar);
+			
+			inicio.add(panelInicioSesion);
+	        
+			//------------------------------------------ Fin menu inicio ----------------------------------------
+			
 	        //------------------------------------------ ALTAS ----------------------------------------
 	        frameAltas = new JInternalFrame();
 	        frameAltas.setLayout(null);
@@ -156,7 +240,6 @@ public class VentanaInicio extends JFrame{
 	        frameAltas.setClosable(true);
 	        frameAltas.setResizable(true);
 
-	        Font f1 = new Font("Arial", Font.ITALIC, 12);
 	        JPanel panel1 = new JPanel();
 	        panel1.setBackground(new Color(115, 170, 249));
 	        panel1.setLayout(null);
@@ -171,7 +254,6 @@ public class VentanaInicio extends JFrame{
 
 	        frameAltas.add(panel1);
 
-	        Font f2 = new Font("Arial", Font.CENTER_BASELINE, 14);
 	        JPanel panel2 = new JPanel();
 	        panel2.setLayout(null);
 	        panel2.setBackground(new Color(255, 255, 255));
@@ -780,7 +862,7 @@ public class VentanaInicio extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like "+ "'" + txtIdJuegoConsultas.getText()+
+					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
 							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
 							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
 							  "%' OR estudio like '" + cboEstudioConsultas.getSelectedItem() + 
@@ -814,7 +896,7 @@ public class VentanaInicio extends JFrame{
 
 	        //----------------------------------- CONSULTAS -------------------------------------
 	       
-	        add(pane, BorderLayout.CENTER);
+	        ventana.add(pane, BorderLayout.CENTER);
 	}
 	 
 	 public void actualizarTabla(JTable tabla,String com){
@@ -865,7 +947,7 @@ public class VentanaInicio extends JFrame{
 	        } catch (UnsupportedLookAndFeelException e) {
 	            e.printStackTrace();
 	        }
-
+     
 	        SwingUtilities.invokeLater(new Runnable(){
 	            @Override
 	            public void run() {
