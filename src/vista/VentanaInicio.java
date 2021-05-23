@@ -40,16 +40,16 @@ public class VentanaInicio extends JFrame{
 	 
 	 JButton btnEntrar, btnCerrar,
 	 		 btnAgregarAltas, btnRestablecerAltas, 
-	         btnEliminar, btnRestablecerBajas,
-	         btnActualizar, btnRestablecerModificaciones,
-	         btnBuscar, btnRestablecerConsultas;
+	         btnEliminar, btnRestablecerBajas, btnBuscarBajas,
+	         btnActualizar, btnRestablecerModificaciones, btnBuscarModificaciones,
+	         btnBuscarConsultas, btnRestablecerConsultas;
 	 
 	 JComboBox<String> cboGeneroAltas, cboPlataformaAltas,
 	 				   cboGeneroBajas, cboPlataformaBajas,
 	 				   cboGeneroModificaciones, cboPlataformaModificaciones,
 	 				   cboGeneroConsultas, cboPlataformaConsultas;
 	
-	 JScrollPane scrollAltas, scrollBajas, scrollModificaciones, scrolConsultas;
+	 JScrollPane scrollAltas, scrollBajas, scrollModificaciones, scrollConsultas;
 	 
 	 JTable tablaJuegosAltas, tablaJuegosBajas, tablaJuegosModificaciones, tablaJuegosConsultas;
 	 
@@ -163,7 +163,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                
-	            	actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
+	            	actualizarTabla(tablaJuegosBajas, "select*from juegos;");
 	            	
 	            	metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, txtEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
 	            	
@@ -366,7 +366,7 @@ public class VentanaInicio extends JFrame{
 	        
 	        btnRestablecerAltas = new JButton("LIMPIAR");
 	        btnRestablecerAltas.setFont(f2);
-	        btnRestablecerAltas.setBounds(180, 290, 120, 30);
+	        btnRestablecerAltas.setBounds(180, 290, 120, 25);
 	        btnRestablecerAltas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -392,8 +392,7 @@ public class VentanaInicio extends JFrame{
 										txtEstudioAltas.getText(),
 										cboPlataformaAltas.getSelectedItem()+"",
 				                        Integer.parseInt(spinnerCantidadAltas.getValue()+""),
-				                        Double.parseDouble(spinnerPrecioAltas.getValue()+"")
-	                        );
+				                        Double.parseDouble(spinnerPrecioAltas.getValue()+"") );
 	                
 	                jDAO = new JuegoDAO();
 	        		
@@ -466,22 +465,22 @@ public class VentanaInicio extends JFrame{
 	        
 	        JLabel lblIdJuego = new JLabel("ID JUEGO: ");
 	        lblIdJuego.setFont(f2);
-	        lblIdJuego.setBounds(50, 100, 100, 25);
+	        lblIdJuego.setBounds(10, 100, 100, 25);
 	        panel5.add(lblIdJuego);
 
 	        txtIdJuegoBajas = new JTextField(10);
 	        txtIdJuegoBajas.setFont(f2);
-	        txtIdJuegoBajas.setBounds(150, 100, 176, 23);
+	        txtIdJuegoBajas.setBounds(100, 100, 176, 23);
 	        panel5.add(txtIdJuegoBajas);
 	        
 	        JLabel lblTitulo2 = new JLabel("TITULO: ");
 	        lblTitulo2.setFont(f2);
-	        lblTitulo2.setBounds(50, 150, 100, 25);
+	        lblTitulo2.setBounds(20, 150, 100, 25);
 	        panel5.add(lblTitulo2);
 
 	        txtTituloBajas = new JTextField(10);
 	        txtTituloBajas.setFont(f2);
-	        txtTituloBajas.setBounds(150, 150, 176, 23);
+	        txtTituloBajas.setBounds(100, 150, 176, 23);
 	        panel5.add(txtTituloBajas);
 
 	        JLabel lblGenero2 = new JLabel("GENERO:");
@@ -547,7 +546,7 @@ public class VentanaInicio extends JFrame{
 	        
 	        btnRestablecerBajas = new JButton("LIMPIAR");
 	        btnRestablecerBajas.setFont(f2);
-	        btnRestablecerBajas.setBounds(150, 250, 174, 30);
+	        btnRestablecerBajas.setBounds(100, 250, 174, 30);
 	        btnRestablecerBajas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -559,7 +558,7 @@ public class VentanaInicio extends JFrame{
 
 	        btnEliminar = new JButton("ELIMINAR");
 	        btnEliminar.setFont(f2);
-	        btnEliminar.setBounds(150, 200, 174, 30);
+	        btnEliminar.setBounds(100, 200, 174, 30);
 	        btnEliminar.addActionListener(new ActionListener() {
 				
 				@Override
@@ -576,6 +575,28 @@ public class VentanaInicio extends JFrame{
 				}
 			});
 	        panel5.add(btnEliminar);
+	        
+	        btnBuscarBajas = new JButton(new ImageIcon("Iconos/Buscar.png"));
+	        btnBuscarBajas.setFont(f2);
+	        btnBuscarBajas.setBounds(280, 100, 60, 75);
+	        btnBuscarBajas.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					if(txtIdJuegoBajas.getText().length()<=0) {
+						txtIdJuegoBajas.setText("  ");
+					}
+					if(txtTituloBajas.getText().length()<=0) {
+						txtTituloBajas.setText("  ");
+					}
+					
+					actualizarTabla(tablaJuegosBajas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoBajas.getText() +
+							  "%' OR titulo like '" + txtTituloBajas.getText() + "%';");
+				}
+			});
+	        
+	        panel5.add(btnBuscarBajas);
 
 	        frameBajas.add(panel5);
 
@@ -680,22 +701,22 @@ public class VentanaInicio extends JFrame{
 	        
 	        JLabel lblIdJuego2 = new JLabel("ID JUEGO: ");
 	        lblIdJuego2.setFont(f2);
-	        lblIdJuego2.setBounds(50, 100, 100, 25);
+	        lblIdJuego2.setBounds(10, 100, 100, 25);
 	        panel8.add(lblIdJuego2);
 
 	        txtIdJuegoModificaciones = new JTextField(10);
 	        txtIdJuegoModificaciones.setFont(f2);
-	        txtIdJuegoModificaciones.setBounds(150, 100, 176, 23);
+	        txtIdJuegoModificaciones.setBounds(100, 100, 176, 23);
 	        panel8.add(txtIdJuegoModificaciones);
 	        
 	        JLabel lblTitulo3 = new JLabel("TITULO: ");
 	        lblTitulo3.setFont(f2);
-	        lblTitulo3.setBounds(50, 150, 100, 25);
+	        lblTitulo3.setBounds(20, 150, 100, 25);
 	        panel8.add(lblTitulo3);
 
 	        txtTituloModificaciones = new JTextField(10);
 	        txtTituloModificaciones.setFont(f2);
-	        txtTituloModificaciones.setBounds(150, 150, 176, 23);
+	        txtTituloModificaciones.setBounds(100, 150, 176, 23);
 	        panel8.add(txtTituloModificaciones);
 
 	        JLabel lblGenero3 = new JLabel("GENERO:");
@@ -761,7 +782,7 @@ public class VentanaInicio extends JFrame{
 	        
 	        btnRestablecerModificaciones = new JButton("LIMPIAR");
 	        btnRestablecerModificaciones.setFont(f2);
-	        btnRestablecerModificaciones.setBounds(150, 250, 174, 30);
+	        btnRestablecerModificaciones.setBounds(100, 250, 174, 30);
 	        btnRestablecerModificaciones.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
@@ -773,8 +794,50 @@ public class VentanaInicio extends JFrame{
 
 	        btnActualizar = new JButton("ACTUALIZAR");
 	        btnActualizar.setFont(f2);
-	        btnActualizar.setBounds(150, 200, 174, 30);
+	        btnActualizar.setBounds(100, 200, 174, 30);
+	        btnActualizar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					Juego j = new Juego(txtIdJuegoModificaciones.getText(), txtTituloModificaciones.getText(), 
+							cboGeneroModificaciones.getSelectedItem()+"",
+							txtEstudioModificaciones.getText(),
+							cboPlataformaModificaciones.getSelectedItem()+"",
+	                        Integer.parseInt(spinnerCantidadModificaciones.getValue()+""),
+	                        Double.parseDouble(spinnerPrecioModificaciones.getValue()+"") );
+	                
+	                jDAO = new JuegoDAO();
+	        		
+	        		System.out.println(jDAO.modificarRegistro(j)?"EXITO":"FALLO");
+	        		
+	        		actualizarTabla(tablaJuegosModificaciones, "select * from juegos;");
+					
+				}
+			});
 	        panel8.add(btnActualizar);
+	        
+	        btnBuscarModificaciones = new JButton(new ImageIcon("Iconos/Buscar.png"));
+	        btnBuscarModificaciones.setFont(f2);
+	        btnBuscarModificaciones.setBounds(280, 100, 60, 75);
+	        btnBuscarModificaciones.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					if(txtIdJuegoModificaciones.getText().length()<=0) {
+						txtIdJuegoModificaciones.setText("  ");
+					}
+					if(txtTituloModificaciones.getText().length()<=0) {
+						txtTituloModificaciones.setText("  ");
+					}
+					
+					actualizarTabla(tablaJuegosModificaciones, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoModificaciones.getText() +
+							  "%' OR titulo like '" + txtTituloModificaciones.getText() + "%';");
+				}
+			});
+	        
+	        panel8.add(btnBuscarModificaciones);
 
 	        frameModificaciones.add(panel8);
 
@@ -972,10 +1035,10 @@ public class VentanaInicio extends JFrame{
 	        });
 	        panel11.add(btnRestablecerConsultas);
 
-	        btnBuscar = new JButton("BUSCAR");
-	        btnBuscar.setFont(f2);
-	        btnBuscar.setBounds(350, 250, 140, 25);
-	        btnBuscar.addActionListener(new ActionListener() {
+	        btnBuscarConsultas = new JButton("BUSCAR");
+	        btnBuscarConsultas.setFont(f2);
+	        btnBuscarConsultas.setBounds(350, 250, 140, 25);
+	        btnBuscarConsultas.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -986,17 +1049,20 @@ public class VentanaInicio extends JFrame{
 					if(txtTituloConsultas.getText().length()<=0) {
 						txtTituloConsultas.setText("  ");
 					}
+					if(txtEstudioConsultas.getText().length()<=0) {
+						txtEstudioConsultas.setText("  ");
+					}
 					
 					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
 							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
 							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
 							  "%' OR estudio like '" + txtEstudioConsultas.getText() + 
 							  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
-							  "%' OR cantidad = " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
+							  "%' OR cantidad <= " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
 							    " OR precio <= " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
 				}
 			});
-	        panel11.add(btnBuscar);
+	        panel11.add(btnBuscarConsultas);
 
 	        frameConsultas.add(panel11);
 
@@ -1011,51 +1077,10 @@ public class VentanaInicio extends JFrame{
 	                "Plataforma", "Cantidad", "Precio"}
 	        ));
 
-	        scrollModificaciones = new JScrollPane(tablaJuegosConsultas);
-	        scrollModificaciones.setBounds(5, 9, 678, 135);
+	        scrollConsultas = new JScrollPane(tablaJuegosConsultas);
+	        scrollConsultas.setBounds(5, 9, 678, 135);
 	        
-	        tablaJuegosConsultas.addMouseListener(new MouseListener() {
-				
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					
-					cargarDatos(tablaJuegosConsultas);
-					
-					txtIdJuegoConsultas.setText(idJuego);
-					txtTituloConsultas.setText(titulo);
-					cboGeneroConsultas.setSelectedIndex(genero);
-					txtEstudioConsultas.setText(estudio);
-					cboPlataformaConsultas.setSelectedIndex(plataforma);
-					spinnerCantidadConsultas.setValue(cantidad);
-					spinnerPrecioConsultas.setValue(precio);
-				}
-			});
-	        
-	        panel12.add(scrollModificaciones);
+	        panel12.add(scrollConsultas);
 
 	        frameConsultas.add(panel12);
 

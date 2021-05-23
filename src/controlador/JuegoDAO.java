@@ -42,13 +42,13 @@ public class JuegoDAO {
 	public boolean modificarRegistro(Juego j) {
 		boolean resultado = false;
 		
-		String sql = "UPDATE juegos SET titulo='"+ j.getTitulo() +
-				"', genero='" + j.getGenero() +
-				"', estudio='" + j.getEstudio() + 
-				"', lataforma='" + j.getPlataforma() + 
-				"', cantidad=" + j.getCantidad() +
-				", precio=" + j.getPrecio() +
-				", WHERE idJuego ='" + j.getIdJuego()+"'";
+		String sql = "UPDATE juegos SET titulo = '"+ j.getTitulo() +
+				"', genero = '" + j.getGenero() +
+				"', estudio = '" + j.getEstudio() + 
+				"', plataforma ='" + j.getPlataforma() + 
+				"', cantidad =" + j.getCantidad() +
+				", precio =" + j.getPrecio() +
+				" WHERE idJuego = '" + j.getIdJuego()+"';";
 		
 		resultado = conexion.ejecutarInstruccion(sql);
 		
