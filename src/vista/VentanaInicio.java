@@ -59,6 +59,8 @@ public class VentanaInicio extends JFrame{
 	 		  
 	 JuegoDAO jDAO;
 	 
+	 String idJuego; String titulo; int genero; String estudio; int plataforma; int cantidad; double precio;
+	 
 	 ResultSetTableModel modeloDatos = null;
 	 
 	 DecimalFormat df = new DecimalFormat("#.##");
@@ -330,7 +332,7 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaAltas.addItem("Xbox Series");
 	        cboPlataformaAltas.addItem("Playstation 5");
 	        cboPlataformaAltas.addItem("Playstation 4");
-	        cboPlataformaAltas.addItem("Nintendos Switsh");
+	        cboPlataformaAltas.addItem("Nintendo Switch");
 	        cboPlataformaAltas.setFont(f1);
 	        cboPlataformaAltas.setBounds(330, 170, 176, 23);
 	        panel2.add(cboPlataformaAltas);
@@ -507,7 +509,7 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaBajas.addItem("Xbox Series");
 	        cboPlataformaBajas.addItem("Playstation 5");
 	        cboPlataformaBajas.addItem("Playstation 4");
-	        cboPlataformaBajas.addItem("Nintendos Switsh");
+	        cboPlataformaBajas.addItem("Nintendo Switch");
 	        cboPlataformaBajas.setFont(f1);
 	        cboPlataformaBajas.setBounds(460, 170, 176, 23);
 	        panel5.add(cboPlataformaBajas);
@@ -576,6 +578,47 @@ public class VentanaInicio extends JFrame{
 
 	        scrollBajas = new JScrollPane(tablaJuegosBajas);
 	        scrollBajas.setBounds(5, 9, 678, 135);
+	        
+	        tablaJuegosBajas.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					cargarDatos(tablaJuegosBajas);
+					
+					txtIdJuegoBajas.setText(idJuego);
+					txtTituloBajas.setText(titulo);
+					cboGeneroBajas.setSelectedIndex(genero);
+					txtEstudioBajas.setText(estudio);
+					cboPlataformaBajas.setSelectedIndex(plataforma);
+					spinnerCantidadBajas.setValue(cantidad);
+					spinnerPrecioBajas.setValue(precio);
+				}
+			});
 	        panel6.add(scrollBajas);
 
 	        frameBajas.add(panel6);
@@ -679,7 +722,7 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaModificaciones.addItem("Xbox Series");
 	        cboPlataformaModificaciones.addItem("Playstation 5");
 	        cboPlataformaModificaciones.addItem("Playstation 4");
-	        cboPlataformaModificaciones.addItem("Nintendos Switsh");
+	        cboPlataformaModificaciones.addItem("Nintendo Switch");
 	        cboPlataformaModificaciones.setFont(f1);
 	        cboPlataformaModificaciones.setBounds(460, 170, 176, 23);
 	        panel8.add(cboPlataformaModificaciones);
@@ -763,40 +806,15 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
-					TableModel tableModel = tablaJuegosModificaciones.getModel();
-
-					txtIdJuegoModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 0)+"");
-					txtTituloModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 1)+"");
-					txtEstudioModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2)+"");
-					spinnerCantidadModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 5));
-					spinnerPrecioModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 6));
+					cargarDatos(tablaJuegosModificaciones);
 					
-					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Disparos")) {
-						cboGeneroModificaciones.setSelectedIndex(1);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Terror")) {
-						cboGeneroModificaciones.setSelectedIndex(2);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Aventura")) {
-						cboGeneroModificaciones.setSelectedIndex(3);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Estrategia")) {
-						cboGeneroModificaciones.setSelectedIndex(4);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Peleas")) {
-						cboGeneroModificaciones.setSelectedIndex(5);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Deportes")) {
-						cboGeneroModificaciones.setSelectedIndex(6);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Carreras")) {
-						cboGeneroModificaciones.setSelectedIndex(7);
-					}
-
-					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Xbox Series")) {
-						cboPlataformaModificaciones.setSelectedIndex(1);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Playstation 5")) {
-						cboPlataformaModificaciones.setSelectedIndex(2);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Playstation 4")) {
-						cboPlataformaModificaciones.setSelectedIndex(3);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Nintendos Switsh")) {
-						cboPlataformaModificaciones.setSelectedIndex(4);
-					}
-					
+					txtIdJuegoModificaciones.setText(idJuego);
+					txtTituloModificaciones.setText(titulo);
+					cboGeneroModificaciones.setSelectedIndex(genero);
+					txtEstudioModificaciones.setText(estudio);
+					cboPlataformaModificaciones.setSelectedIndex(plataforma);
+					spinnerCantidadModificaciones.setValue(cantidad);
+					spinnerPrecioModificaciones.setValue(precio);
 				}
 			});
 	        
@@ -904,7 +922,7 @@ public class VentanaInicio extends JFrame{
 	        cboPlataformaConsultas.addItem("Xbox Series");
 	        cboPlataformaConsultas.addItem("Playstation 5");
 	        cboPlataformaConsultas.addItem("Playstation 4");
-	        cboPlataformaConsultas.addItem("Nintendos Switsh");
+	        cboPlataformaConsultas.addItem("Nintendo Switch");
 	        cboPlataformaConsultas.setFont(f1);
 	        cboPlataformaConsultas.setBounds(150, 200, 176, 23);
 	        panel11.add(cboPlataformaConsultas);
@@ -933,7 +951,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerConsultas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, txtEstudioModificaciones, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
+	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, txtEstudioConsultas, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
 	                actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            }
 	        });
@@ -980,6 +998,48 @@ public class VentanaInicio extends JFrame{
 
 	        scrollModificaciones = new JScrollPane(tablaJuegosConsultas);
 	        scrollModificaciones.setBounds(5, 9, 678, 135);
+	        
+	        tablaJuegosConsultas.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					cargarDatos(tablaJuegosConsultas);
+					
+					txtIdJuegoConsultas.setText(idJuego);
+					txtTituloConsultas.setText(titulo);
+					cboGeneroConsultas.setSelectedIndex(genero);
+					txtEstudioConsultas.setText(estudio);
+					cboPlataformaConsultas.setSelectedIndex(plataforma);
+					spinnerCantidadConsultas.setValue(cantidad);
+					spinnerPrecioConsultas.setValue(precio);
+				}
+			});
+	        
 	        panel12.add(scrollModificaciones);
 
 	        frameConsultas.add(panel12);
@@ -1025,6 +1085,43 @@ public class VentanaInicio extends JFrame{
 				}
 			}
 		}
+	 
+	 public void cargarDatos(JTable tabla) {
+		 
+		 TableModel tableModel = tablaJuegosModificaciones.getModel();
+
+			idJuego = tableModel.getValueAt(tabla.getSelectedRow(), 0)+"";
+			titulo = tableModel.getValueAt(tabla.getSelectedRow(), 1)+"";
+			estudio = tableModel.getValueAt(tabla.getSelectedRow(), 3)+"";
+			cantidad = Integer.parseInt(tableModel.getValueAt(tabla.getSelectedRow(), 5)+"");
+			precio = Double.parseDouble(tableModel.getValueAt(tabla.getSelectedRow(), 6)+"");
+			
+			if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Disparos")) {
+				genero = 1;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Terror")) {
+				genero = 2;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Aventura")) {
+				genero = 3;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Estrategia")) {
+				genero = 4;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Peleas")) {
+				genero = 5;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Deportes")) {
+				genero = 6;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 2).equals("Carreras")) {
+				genero = 7;
+			}
+
+			if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Xbox series")) {
+				plataforma = 1;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Playstation 5")) {
+				plataforma = 2;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Playstation 4")) {
+				plataforma = 3;
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Nintendo Switch")) {
+				plataforma = 4;
+			}
+	 }
 	 
 	 public String obtenerMaxId() {
 		
