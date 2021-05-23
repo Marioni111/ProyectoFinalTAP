@@ -32,10 +32,10 @@ public class VentanaInicio extends JFrame{
 	 JInternalFrame frameInicioSesion, frameAltas, frameBajas, frameModificaciones, frameConsultas;
 	 
 	 JTextField txtUsuario, txtPassword,
-	 			txtTituloAltas,
-	 			txtIdJuegoBajas, txtTituloBajas,
-	 			txtIdJuegoModificaciones, txtTituloModificaciones,
-	 			txtIdJuegoConsultas, txtTituloConsultas;
+	 			txtTituloAltas, txtEstudioAltas,
+	 			txtIdJuegoBajas, txtTituloBajas, txtEstudioBajas,
+	 			txtIdJuegoModificaciones, txtTituloModificaciones, txtEstudioModificaciones,
+	 			txtIdJuegoConsultas, txtTituloConsultas, txtEstudioConsultas;
 	 
 	 JButton btnEntrar, btnCerrar,
 	 		 btnAgregarAltas, btnRestablecerAltas, 
@@ -43,10 +43,10 @@ public class VentanaInicio extends JFrame{
 	         btnActualizar, btnRestablecerModificaciones,
 	         btnBuscar, btnRestablecerConsultas;
 	 
-	 JComboBox<String> cboGeneroAltas, cboEstudioAltas, cboPlataformaAltas,
-	 				   cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas,
-	 				   cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones,
-	 				   cboGeneroConsultas, cboEstudioConsultas, cboPlataformaConsultas;
+	 JComboBox<String> cboGeneroAltas, cboPlataformaAltas,
+	 				   cboGeneroBajas, cboPlataformaBajas,
+	 				   cboGeneroModificaciones, cboPlataformaModificaciones,
+	 				   cboGeneroConsultas, cboPlataformaConsultas;
 	
 	 JScrollPane scrollAltas, scrollBajas, scrollModificaciones, scrolConsultas;
 	 
@@ -315,17 +315,10 @@ public class VentanaInicio extends JFrame{
 	        lblEstudio.setBounds(180, 130, 300, 25);
 	        panel2.add(lblEstudio);
 	        
-	        cboEstudioAltas = new JComboBox<String>();
-	        cboEstudioAltas.addItem("Elige el estudio...");
-	        cboEstudioAltas.addItem("Ubisoft");
-	        cboEstudioAltas.addItem("Capcom");
-	        cboEstudioAltas.addItem("Epic Games");
-	        cboEstudioAltas.addItem("Electronic Arts");
-	        cboEstudioAltas.addItem("Microsoft Studios");
-	        cboEstudioAltas.addItem("Game Freak");
-	        cboEstudioAltas.setFont(f1);
-	        cboEstudioAltas.setBounds(330, 130, 176, 23);
-	        panel2.add(cboEstudioAltas);
+	        txtEstudioAltas = new JTextField(10);
+	        txtEstudioAltas.setFont(f2);
+	        txtEstudioAltas.setBounds(330, 130, 176, 23);
+	        panel2.add(txtEstudioAltas);
 
 	        JLabel lblPlataforma = new JLabel("PLATAFORMA:");
 	        lblPlataforma.setFont(f2);
@@ -366,7 +359,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerAltas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtTituloAltas, cboGeneroAltas, cboEstudioAltas, cboPlataformaAltas, spinnerCantidadAltas, spinnerPrecioAltas);
+	                metodoRestablecer(txtTituloAltas, cboGeneroAltas, txtEstudioAltas, cboPlataformaAltas, spinnerCantidadAltas, spinnerPrecioAltas);
 	            }
 	        });
 	        panel2.add(btnRestablecerAltas);
@@ -381,7 +374,7 @@ public class VentanaInicio extends JFrame{
 					
 					Juego j = new Juego("j15", txtTituloAltas.getText(), 
 										cboGeneroAltas.getSelectedItem()+"",
-										cboEstudioAltas.getSelectedItem()+"",
+										txtEstudioAltas.getText(),
 										cboPlataformaAltas.getSelectedItem()+"",
 				                        Integer.parseInt(spinnerCantidadAltas.getValue()+""),
 				                        Double.parseDouble(spinnerPrecioAltas.getValue()+"")
@@ -499,17 +492,10 @@ public class VentanaInicio extends JFrame{
 	        lblEstudio2.setBounds(350, 130, 300, 25);
 	        panel5.add(lblEstudio2);
 	        
-	        cboEstudioBajas = new JComboBox<String>();
-	        cboEstudioBajas.addItem("Elige el estudio...");
-	        cboEstudioBajas.addItem("Ubisoft");
-	        cboEstudioBajas.addItem("Capcom");
-	        cboEstudioBajas.addItem("Epic Games");
-	        cboEstudioBajas.addItem("Electronic Arts");
-	        cboEstudioBajas.addItem("Microsoft Studios");
-	        cboEstudioBajas.addItem("Game Freak");
-	        cboEstudioBajas.setFont(f1);
-	        cboEstudioBajas.setBounds(460, 130, 176, 23);
-	        panel5.add(cboEstudioBajas);
+	        txtEstudioBajas = new JTextField(10);
+	        txtEstudioBajas.setFont(f2);
+	        txtEstudioBajas.setBounds(460, 130, 176, 23);
+	        panel5.add(txtEstudioBajas);
 
 	        JLabel lblPlataforma2 = new JLabel("PLATAFORMA:");
 	        lblPlataforma2.setFont(f2);
@@ -550,7 +536,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerBajas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, cboEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
+	                metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, txtEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
 	            }
 	        });
 	        panel5.add(btnRestablecerBajas);
@@ -678,17 +664,10 @@ public class VentanaInicio extends JFrame{
 	        lblEstudio3.setBounds(350, 130, 300, 25);
 	        panel8.add(lblEstudio3);
 	        
-	        cboEstudioModificaciones = new JComboBox<String>();
-	        cboEstudioModificaciones.addItem("Elige el estudio...");
-	        cboEstudioModificaciones.addItem("Ubisoft");
-	        cboEstudioModificaciones.addItem("Capcom");
-	        cboEstudioModificaciones.addItem("Epic Games");
-	        cboEstudioModificaciones.addItem("Electronic Arts");
-	        cboEstudioModificaciones.addItem("Microsoft Studios");
-	        cboEstudioModificaciones.addItem("Game Freak");
-	        cboEstudioModificaciones.setFont(f1);
-	        cboEstudioModificaciones.setBounds(460, 130, 176, 23);
-	        panel8.add(cboEstudioModificaciones);
+	        txtEstudioModificaciones = new JTextField(10);
+	        txtEstudioModificaciones.setFont(f2);
+	        txtEstudioModificaciones.setBounds(460, 130, 176, 23);
+	        panel8.add(txtEstudioModificaciones);
 
 	        JLabel lblPlataforma3 = new JLabel("PLATAFORMA:");
 	        lblPlataforma3.setFont(f2);
@@ -729,7 +708,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerModificaciones.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtIdJuegoModificaciones, txtTituloModificaciones, cboGeneroModificaciones, cboEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, spinnerPrecioModificaciones);
+	                metodoRestablecer(txtIdJuegoModificaciones, txtTituloModificaciones, cboGeneroModificaciones, txtEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, spinnerPrecioModificaciones);
 	            }
 	        });
 	        panel8.add(btnRestablecerModificaciones);
@@ -788,6 +767,9 @@ public class VentanaInicio extends JFrame{
 
 					txtIdJuegoModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 0)+"");
 					txtTituloModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 1)+"");
+					txtEstudioModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2)+"");
+					spinnerCantidadModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 5));
+					spinnerPrecioModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 6));
 					
 					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Disparos")) {
 						cboGeneroModificaciones.setSelectedIndex(1);
@@ -804,22 +786,7 @@ public class VentanaInicio extends JFrame{
 					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Carreras")) {
 						cboGeneroModificaciones.setSelectedIndex(7);
 					}
-					
-					
-					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Capcom")) {
-						cboEstudioModificaciones.setSelectedIndex(1);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Epic Games")) {
-						cboEstudioModificaciones.setSelectedIndex(2);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Electronic Arts")) {
-						cboEstudioModificaciones.setSelectedIndex(3);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Microsoft Studios")) {
-						cboEstudioModificaciones.setSelectedIndex(4);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Game Freak")) {
-						cboEstudioModificaciones.setSelectedIndex(5);
-					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Deportes")) {
-						cboEstudioModificaciones.setSelectedIndex(6);
-					}
-					
+
 					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Xbox Series")) {
 						cboPlataformaModificaciones.setSelectedIndex(1);
 					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Playstation 5")) {
@@ -829,9 +796,6 @@ public class VentanaInicio extends JFrame{
 					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Nintendos Switsh")) {
 						cboPlataformaModificaciones.setSelectedIndex(4);
 					}
-					
-					spinnerCantidadModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 5));
-					spinnerPrecioModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 6));
 					
 				}
 			});
@@ -925,17 +889,10 @@ public class VentanaInicio extends JFrame{
 	        lblEstudio4.setBounds(350, 150, 300, 25);
 	        panel11.add(lblEstudio4);
 	        
-	        cboEstudioConsultas = new JComboBox<String>();
-	        cboEstudioConsultas.addItem("Elige el estudio...");
-	        cboEstudioConsultas.addItem("Ubisoft");
-	        cboEstudioConsultas.addItem("Capcom");
-	        cboEstudioConsultas.addItem("Epic Games");
-	        cboEstudioConsultas.addItem("Electronic Arts");
-	        cboEstudioConsultas.addItem("Microsoft Studios");
-	        cboEstudioConsultas.addItem("Game Freak");
-	        cboEstudioConsultas.setFont(f1);
-	        cboEstudioConsultas.setBounds(450, 150, 176, 23);
-	        panel11.add(cboEstudioConsultas);
+	        txtEstudioConsultas = new JTextField(10);
+	        txtEstudioConsultas.setFont(f2);
+	        txtEstudioConsultas.setBounds(450, 150, 176, 23);
+	        panel11.add(txtEstudioConsultas);
 
 	        JLabel lblPlataforma4 = new JLabel("PLATAFORMA:");
 	        lblPlataforma4.setFont(f2);
@@ -976,7 +933,7 @@ public class VentanaInicio extends JFrame{
 	        btnRestablecerConsultas.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, cboEstudioConsultas, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
+	                metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, txtEstudioModificaciones, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
 	                actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            }
 	        });
@@ -1000,7 +957,7 @@ public class VentanaInicio extends JFrame{
 					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
 							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
 							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
-							  "%' OR estudio like '" + cboEstudioConsultas.getSelectedItem() + 
+							  "%' OR estudio like '" + txtEstudioConsultas.getText() + 
 							  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
 							  "%' OR cantidad = " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
 							    " OR precio <= " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
