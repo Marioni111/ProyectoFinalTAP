@@ -2,17 +2,20 @@ package vista;
 
 import javax.print.CancelablePrintJob;
 import javax.swing.*;
+import javax.swing.table.TableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
 import controlador.JuegoDAO;
 import modelo.Juego;
 
@@ -54,7 +57,7 @@ public class VentanaInicio extends JFrame{
 	 		  spinnerCantidadModificaciones, spinnerPrecioModificaciones, 
 	 		  spinnerCantidadConsultas, spinnerPrecioConsultas;
 	 		  
-	 JuegoDAO aDAO;
+	 JuegoDAO jDAO;
 	 
 	 ResultSetTableModel modeloDatos = null;
 	 
@@ -62,6 +65,8 @@ public class VentanaInicio extends JFrame{
 	 
 	 Font f1 = new Font("Arial", Font.ITALIC, 12);
 	 Font f2 = new Font("Arial", Font.CENTER_BASELINE, 14);
+	 
+	 String maxId = "";
 	 
 	 public void crearComponentes() {
 	        
@@ -73,7 +78,19 @@ public class VentanaInicio extends JFrame{
 		 	ventana.setLocationRelativeTo(null);
 		 	
 	        JDesktopPane pane = new JDesktopPane();
+	        
+	        double min = 0.00;
+	        double value = 0.00;
+	        double max = 500000;
+	        double stepSize = 100.00;
+	        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, stepSize);
 
+	        int min2 = 0;
+	        int value2 = 0;
+	        int max2 = 500000;
+	        int stepSize2 = 10;
+	        SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, stepSize2);
+	        
 	        //-------------------------------------- MENU PRINCIPAL ----------------------------------
 
 	        JMenuBar menuBar = new JMenuBar();
@@ -330,7 +347,7 @@ public class VentanaInicio extends JFrame{
 	        lblCantidad.setBounds(180, 210, 300, 25);
 	        panel2.add(lblCantidad);
 
-			spinnerCantidadAltas = new JSpinner();
+			spinnerCantidadAltas = new JSpinner(model2);
 			spinnerCantidadAltas.setBounds(330, 210, 176, 23);
 			panel2.add(spinnerCantidadAltas);
 	        
@@ -339,7 +356,7 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre.setBounds(180, 250, 300, 25);
 	        panel2.add(lblSemestre);
 
-	        spinnerPrecioAltas = new JSpinner();
+	        spinnerPrecioAltas = new JSpinner(model);
 	        spinnerPrecioAltas.setBounds(330, 250, 176, 23);
 			panel2.add(spinnerPrecioAltas);
 	        
@@ -362,7 +379,19 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					actualizarTabla(tablaJuegosModificaciones, "select*from juegos;");
+					Juego j = new Juego("j15", txtTituloAltas.getText(), 
+										cboGeneroAltas.getSelectedItem()+"",
+										cboEstudioAltas.getSelectedItem()+"",
+										cboPlataformaAltas.getSelectedItem()+"",
+				                        Integer.parseInt(spinnerCantidadAltas.getValue()+""),
+				                        Double.parseDouble(spinnerPrecioAltas.getValue()+"")
+	                        );
+	                
+	                jDAO = new JuegoDAO();
+	        		
+	        		System.out.println(jDAO.insertarRegistro(j)?"EXITO":"FALLO");
+					
+					actualizarTabla(tablaJuegosAltas, "select*from juegos;");
 				}
 			});
 	        panel2.add(btnAgregarAltas);
@@ -502,7 +531,7 @@ public class VentanaInicio extends JFrame{
 	        lblCantidad2.setBounds(350, 210, 300, 25);
 	        panel5.add(lblCantidad2);
 
-			spinnerCantidadBajas = new JSpinner();
+			spinnerCantidadBajas = new JSpinner(model2);
 			spinnerCantidadBajas.setBounds(460, 210, 176, 23);
 			panel5.add(spinnerCantidadBajas);
 	        
@@ -511,7 +540,7 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre2.setBounds(350, 250, 300, 25);
 	        panel5.add(lblSemestre2);
 	        
-	        spinnerPrecioBajas = new JSpinner();
+	        spinnerPrecioBajas = new JSpinner(model);
 	        spinnerPrecioBajas.setBounds(460, 250, 176, 23);
 			panel5.add(spinnerPrecioBajas);
 	        
@@ -529,6 +558,21 @@ public class VentanaInicio extends JFrame{
 	        btnEliminar = new JButton("ELIMINAR");
 	        btnEliminar.setFont(f2);
 	        btnEliminar.setBounds(150, 200, 174, 30);
+	        btnEliminar.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					String id = txtIdJuegoBajas.getText();
+	            	
+	            	jDAO = new JuegoDAO();
+	        		
+	        		System.out.println(jDAO.eliminarRegistro(id)?"EXITO":"Me cambio de carrera");
+	        		
+	        		actualizarTabla(tablaJuegosBajas, "select * from juegos;");
+					
+				}
+			});
 	        panel5.add(btnEliminar);
 
 	        frameBajas.add(panel5);
@@ -666,7 +710,7 @@ public class VentanaInicio extends JFrame{
 	        lblCantidad3.setBounds(350, 210, 300, 25);
 	        panel8.add(lblCantidad3);
 
-			spinnerCantidadModificaciones = new JSpinner();
+			spinnerCantidadModificaciones = new JSpinner(model2);
 			spinnerCantidadModificaciones.setBounds(460, 210, 176, 23);
 			panel8.add(spinnerCantidadModificaciones);
 	        
@@ -675,7 +719,7 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre3.setBounds(350, 250, 300, 25);
 	        panel8.add(lblSemestre3);
 	        
-	        spinnerPrecioModificaciones = new JSpinner();
+	        spinnerPrecioModificaciones = new JSpinner(model);
 	        spinnerPrecioModificaciones.setBounds(460, 250, 176, 23);
 			panel8.add(spinnerPrecioModificaciones);
 	        
@@ -710,6 +754,50 @@ public class VentanaInicio extends JFrame{
 
 	        scrollModificaciones = new JScrollPane(tablaJuegosModificaciones);
 	        scrollModificaciones.setBounds(5, 9, 678, 135);
+	        
+	        tablaJuegosModificaciones.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					System.out.println(tablaJuegosAltas.getSelectedRow());
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					
+					
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					
+					
+					
+					/*System.out.println(tablaJuegosConsultas.getValueAt(0, 0));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 1));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 2));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 3));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 4));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 5));
+					System.out.println(tablaJuegosConsultas.getValueAt(0, 6));*/
+					
+				}
+			});
+	        
 	        panel9.add(scrollModificaciones);
 
 	        frameModificaciones.add(panel9);
@@ -830,8 +918,8 @@ public class VentanaInicio extends JFrame{
 	        lblCantidad4.setFont(f2);
 	        lblCantidad4.setBounds(350, 200, 300, 25);
 	        panel11.add(lblCantidad4);
-
-			spinnerCantidadConsultas = new JSpinner();
+	        
+			spinnerCantidadConsultas = new JSpinner(model2);
 			spinnerCantidadConsultas.setBounds(450, 200, 176, 23);
 			panel11.add(spinnerCantidadConsultas);
 	        
@@ -840,7 +928,7 @@ public class VentanaInicio extends JFrame{
 	        lblSemestre4.setBounds(40, 250, 300, 25);
 	        panel11.add(lblSemestre4);
 	        
-	        spinnerPrecioConsultas = new JSpinner();
+	        spinnerPrecioConsultas = new JSpinner(model);
 	        spinnerPrecioConsultas.setBounds(150, 250, 176, 23);
 			panel11.add(spinnerPrecioConsultas);
 	        
@@ -864,10 +952,10 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtIdJuegoConsultas.getText().length()<=1) {
+					if(txtIdJuegoConsultas.getText().length()<=0) {
 						txtIdJuegoConsultas.setText("  ");
 					}
-					if(txtTituloConsultas.getText().length()<=1) {
+					if(txtTituloConsultas.getText().length()<=0) {
 						txtTituloConsultas.setText("  ");
 					}
 					
@@ -942,6 +1030,23 @@ public class VentanaInicio extends JFrame{
 				}
 			}
 		}
+	 
+	 public String obtenerMaxId() {
+		
+		String controlador = "com.mysql.cj.jdbc.Driver";
+ 		String url = "jdbc:mysql://localhost:3306/TiendaDeVideoJuegos";
+
+			ResultSetTableModel modelo = null;
+			try {
+				modelo = new ResultSetTableModel(controlador, url, "SELECT MAX(idJuego) AS id FROM juegos;");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
+			return maxId = modelo+"";
+	 }
 	 
 	public static void main(String[] args) {
 		

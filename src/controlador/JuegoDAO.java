@@ -24,7 +24,7 @@ public class JuegoDAO {
 	public boolean insertarRegistro(Juego j) {
 		boolean resultado = false;
 		
-		String sql="INSERT INTO juegos VALUES('"+j.getIdJuego()+"','"+j.getTitulo()+"','"+j.getGenero()+"','"+j.getEstudio()+"',"+j.getPlataforma()+","+j.getCantidad()+",'"+j.getPrecio()+"')";
+		String sql="INSERT INTO juegos VALUES('"+j.getIdJuego()+"','"+j.getTitulo()+"','"+j.getGenero()+"','"+j.getEstudio()+"','"+j.getPlataforma()+"',"+j.getCantidad()+","+j.getPrecio()+");";
 		resultado = conexion.ejecutarInstruccion(sql);
 		
 		return resultado;
