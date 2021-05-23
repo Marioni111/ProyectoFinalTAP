@@ -107,6 +107,8 @@ public class VentanaInicio extends JFrame{
 	            	
 	            	actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
 	            	
+	            	metodoRestablecer(txtIdJuegoConsultas, txtTituloConsultas, cboGeneroConsultas, txtEstudioConsultas, cboPlataformaConsultas, spinnerCantidadConsultas, spinnerPrecioConsultas);
+	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(false);
 					frameModificaciones.setVisible(false);
@@ -125,6 +127,8 @@ public class VentanaInicio extends JFrame{
 					
 	        		actualizarTabla(tablaJuegosAltas, "select*from juegos;");
 	        		
+	        		metodoRestablecer(txtTituloAltas, cboGeneroAltas, txtEstudioAltas, cboPlataformaAltas, spinnerCantidadAltas, spinnerPrecioAltas);
+	        		
 	        		frameAltas.setVisible(true);
 					frameBajas.setVisible(false);
 					frameModificaciones.setVisible(false);
@@ -142,6 +146,8 @@ public class VentanaInicio extends JFrame{
 	            	
 	            	actualizarTabla(tablaJuegosModificaciones, "select*from juegos;");
 	            	
+	            	metodoRestablecer(txtIdJuegoModificaciones, txtTituloModificaciones, cboGeneroModificaciones, txtEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, spinnerPrecioModificaciones);
+	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(false);
 					frameModificaciones.setVisible(true);
@@ -158,6 +164,8 @@ public class VentanaInicio extends JFrame{
 	            public void actionPerformed(ActionEvent e) {
 	                
 	            	actualizarTabla(tablaJuegosConsultas, "select*from juegos;");
+	            	
+	            	metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, txtEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
 	            	
 	            	frameAltas.setVisible(false);
 					frameBajas.setVisible(true);
@@ -544,6 +552,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, txtEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
+	                actualizarTabla(tablaJuegosBajas, "select*from juegos;");
 	            }
 	        });
 	        panel5.add(btnRestablecerBajas);
@@ -757,6 +766,7 @@ public class VentanaInicio extends JFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                metodoRestablecer(txtIdJuegoModificaciones, txtTituloModificaciones, cboGeneroModificaciones, txtEstudioModificaciones, cboPlataformaModificaciones, spinnerCantidadModificaciones, spinnerPrecioModificaciones);
+	                actualizarTabla(tablaJuegosModificaciones, "select*from juegos;");
 	            }
 	        });
 	        panel8.add(btnRestablecerModificaciones);
