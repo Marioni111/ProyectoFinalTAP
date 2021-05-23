@@ -759,14 +759,13 @@ public class VentanaInicio extends JFrame{
 				
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					System.out.println(tablaJuegosAltas.getSelectedRow());
+					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					
-					
+					// TODO Auto-generated method stub
 					
 				}
 				
@@ -785,15 +784,54 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
+					TableModel tableModel = tablaJuegosModificaciones.getModel();
+
+					txtIdJuegoModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 0)+"");
+					txtTituloModificaciones.setText(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 1)+"");
+					
+					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Disparos")) {
+						cboGeneroModificaciones.setSelectedIndex(1);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Terror")) {
+						cboGeneroModificaciones.setSelectedIndex(2);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Aventura")) {
+						cboGeneroModificaciones.setSelectedIndex(3);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Estrategia")) {
+						cboGeneroModificaciones.setSelectedIndex(4);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Peleas")) {
+						cboGeneroModificaciones.setSelectedIndex(5);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Deportes")) {
+						cboGeneroModificaciones.setSelectedIndex(6);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Carreras")) {
+						cboGeneroModificaciones.setSelectedIndex(7);
+					}
 					
 					
-					/*System.out.println(tablaJuegosConsultas.getValueAt(0, 0));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 1));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 2));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 3));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 4));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 5));
-					System.out.println(tablaJuegosConsultas.getValueAt(0, 6));*/
+					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Capcom")) {
+						cboEstudioModificaciones.setSelectedIndex(1);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Epic Games")) {
+						cboEstudioModificaciones.setSelectedIndex(2);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Electronic Arts")) {
+						cboEstudioModificaciones.setSelectedIndex(3);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Microsoft Studios")) {
+						cboEstudioModificaciones.setSelectedIndex(4);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Game Freak")) {
+						cboEstudioModificaciones.setSelectedIndex(5);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Deportes")) {
+						cboEstudioModificaciones.setSelectedIndex(6);
+					}
+					
+					if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Xbox Series")) {
+						cboPlataformaModificaciones.setSelectedIndex(1);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Playstation 5")) {
+						cboPlataformaModificaciones.setSelectedIndex(2);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Playstation 4")) {
+						cboPlataformaModificaciones.setSelectedIndex(3);
+					}else if(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 2).equals("Nintendos Switsh")) {
+						cboPlataformaModificaciones.setSelectedIndex(4);
+					}
+					
+					spinnerCantidadModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 5));
+					spinnerPrecioModificaciones.setValue(tableModel.getValueAt(tablaJuegosModificaciones.getSelectedRow(), 6));
 					
 				}
 			});
