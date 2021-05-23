@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.ObjectStreamException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -374,7 +375,11 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					Juego j = new Juego("j15", txtTituloAltas.getText(), 
+					String id = obtenerMaxId().substring(0, 0) + obtenerMaxId().substring(1);
+					
+					int nuevoId = Integer.parseInt(id)+1;
+					
+					Juego j = new Juego("J" + nuevoId, txtTituloAltas.getText(), 
 										cboGeneroAltas.getSelectedItem()+"",
 										txtEstudioAltas.getText(),
 										cboPlataformaAltas.getSelectedItem()+"",
@@ -1137,7 +1142,7 @@ public class VentanaInicio extends JFrame{
 				e1.printStackTrace();
 			}
 			
-			return maxId = modelo+"";
+			return maxId = modelo.getValueAt(0, 0)+"";
 	 }
 	 
 	public static void main(String[] args) {
