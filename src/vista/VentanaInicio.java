@@ -338,10 +338,10 @@ public class VentanaInicio extends JFrame{
 
 	        cboPlataformaAltas = new JComboBox<String>();
 	        cboPlataformaAltas.addItem("Elige la plataforma...");
-	        cboPlataformaAltas.addItem("Xbox Series");
+	        cboPlataformaAltas.addItem("Xbox series");
 	        cboPlataformaAltas.addItem("Playstation 5");
 	        cboPlataformaAltas.addItem("Playstation 4");
-	        cboPlataformaAltas.addItem("Nintendo Switch");
+	        cboPlataformaAltas.addItem("Nintendo switch");
 	        cboPlataformaAltas.setFont(f1);
 	        cboPlataformaAltas.setBounds(330, 170, 176, 23);
 	        panel2.add(cboPlataformaAltas);
@@ -383,22 +383,32 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					String id = obtenerMaxId().substring(0, 0) + obtenerMaxId().substring(1);
+					if(txtTituloAltas.getText().isEmpty() || cboGeneroAltas.getSelectedIndex() == 0 
+						|| txtEstudioAltas.getText().isEmpty() || cboPlataformaAltas.getSelectedIndex() == 0 
+						|| spinnerCantidadAltas.getValue().equals(0) || spinnerPrecioAltas.getValue().equals(0)) {
+								
+							JOptionPane.showMessageDialog(rootPane, "Asegurate de llenar cada uno de los espacios");
+					}else {
+						String id = obtenerMaxId().substring(0, 0) + obtenerMaxId().substring(1);
+						
+						int nuevoId = Integer.parseInt(id)+1;
+						
+						Juego j = new Juego("J" + nuevoId, txtTituloAltas.getText(), 
+											cboGeneroAltas.getSelectedItem()+"",
+											txtEstudioAltas.getText(),
+											cboPlataformaAltas.getSelectedItem()+"",
+					                        Integer.parseInt(spinnerCantidadAltas.getValue()+""),
+					                        Double.parseDouble(spinnerPrecioAltas.getValue()+"") );
+		                
+		                jDAO = new JuegoDAO();
+		        		
+		        		System.out.println(jDAO.insertarRegistro(j)?"EXITO":"FALLO");
+		        		
+		        		JOptionPane.showMessageDialog(rootPane, "Se dio de alta el nuevo juego");
+						
+						actualizarTabla(tablaJuegosAltas, "select*from juegos;");
+					}
 					
-					int nuevoId = Integer.parseInt(id)+1;
-					
-					Juego j = new Juego("J" + nuevoId, txtTituloAltas.getText(), 
-										cboGeneroAltas.getSelectedItem()+"",
-										txtEstudioAltas.getText(),
-										cboPlataformaAltas.getSelectedItem()+"",
-				                        Integer.parseInt(spinnerCantidadAltas.getValue()+""),
-				                        Double.parseDouble(spinnerPrecioAltas.getValue()+"") );
-	                
-	                jDAO = new JuegoDAO();
-	        		
-	        		System.out.println(jDAO.insertarRegistro(j)?"EXITO":"FALLO");
-					
-					actualizarTabla(tablaJuegosAltas, "select*from juegos;");
 				}
 			});
 	        panel2.add(btnAgregarAltas);
@@ -458,7 +468,7 @@ public class VentanaInicio extends JFrame{
 	        panel5.setPreferredSize(new Dimension(700, 190));
 	        panel5.setBounds(0, 80, 700, 330);
 	        
-	        JLabel lblInformacion2 = new JLabel("Busca el juego que quieres sacar del inventario y seleccionalo para cargar sus datos: ");
+	        JLabel lblInformacion2 = new JLabel("BUSCA EL JUEGO A BORRAR, DESPUES SELECCIONALO DESDE LA TABLA: ");
 	        lblInformacion2.setFont(f2);
 	        lblInformacion2.setBounds(10, 30, 630, 25);
 	        panel5.add(lblInformacion2);
@@ -518,10 +528,10 @@ public class VentanaInicio extends JFrame{
 
 	        cboPlataformaBajas = new JComboBox<String>();
 	        cboPlataformaBajas.addItem("Elige la plataforma...");
-	        cboPlataformaBajas.addItem("Xbox Series");
+	        cboPlataformaBajas.addItem("Xbox series");
 	        cboPlataformaBajas.addItem("Playstation 5");
 	        cboPlataformaBajas.addItem("Playstation 4");
-	        cboPlataformaBajas.addItem("Nintendo Switch");
+	        cboPlataformaBajas.addItem("Nintendo switch");
 	        cboPlataformaBajas.setFont(f1);
 	        cboPlataformaBajas.setBounds(460, 170, 176, 23);
 	        panel5.add(cboPlataformaBajas);
@@ -564,14 +574,37 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					String id = txtIdJuegoBajas.getText();
-	            	
-	            	jDAO = new JuegoDAO();
-	        		
-	        		System.out.println(jDAO.eliminarRegistro(id)?"EXITO":"Me cambio de carrera");
-	        		
-	        		actualizarTabla(tablaJuegosBajas, "select * from juegos;");
+					if(txtIdJuegoBajas.getText().isEmpty()) {
+									
+						JOptionPane.showMessageDialog(rootPane, "No has seleccionado ningun juego");
+						
+					}else {
 					
+						int dialogButton = JOptionPane.YES_NO_OPTION;
+			            JOptionPane.showConfirmDialog (null, "Eliminar juego del inventario?","ADVERTENCIA", dialogButton);
+						
+			            if(dialogButton == JOptionPane.YES_OPTION) {
+			            	
+			            	String id = txtIdJuegoBajas.getText();
+			            	
+			            	jDAO = new JuegoDAO();
+			        		
+			            	String estado = "No se econtraron juegos con esos parametros";
+			            	
+			        		System.out.println(jDAO.eliminarRegistro(id)? estado = "El juego a sido eliminado del inventario": "Fallo");
+			        		
+			        		JOptionPane.showMessageDialog(rootPane, estado);	
+			        		
+			        		metodoRestablecer(txtIdJuegoBajas, txtTituloBajas, cboGeneroBajas, txtEstudioBajas, cboPlataformaBajas, spinnerCantidadBajas, spinnerPrecioBajas);
+			        		
+			        		actualizarTabla(tablaJuegosBajas, "select * from juegos;");
+			        		
+			            if(dialogButton == JOptionPane.NO_OPTION) {
+			                  remove(dialogButton);
+			                }
+			              }
+			   
+					}
 				}
 			});
 	        panel5.add(btnEliminar);
@@ -584,15 +617,29 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtIdJuegoBajas.getText().length()<=0) {
-						txtIdJuegoBajas.setText("  ");
-					}
-					if(txtTituloBajas.getText().length()<=0) {
-						txtTituloBajas.setText("  ");
-					}
-					
-					actualizarTabla(tablaJuegosBajas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoBajas.getText() +
-							  "%' OR titulo like '" + txtTituloBajas.getText() + "%';");
+					if(txtIdJuegoBajas.getText().isEmpty() && txtTituloBajas.getText().isEmpty()) {
+								
+								JOptionPane.showMessageDialog(rootPane, "Ingresa informacion del nombreo o el ID del juego");	
+								
+				        	}else {
+				        		
+				        		if(txtIdJuegoBajas.getText().length()<=0) {
+									txtIdJuegoBajas.setText("  ");
+								}
+								if(txtTituloBajas.getText().length()<=0) {
+									txtTituloBajas.setText("  ");
+								}
+								
+								actualizarTabla(tablaJuegosBajas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoBajas.getText() +
+										  "%' OR titulo like '" + txtTituloBajas.getText() + "%';");
+								
+								if(tablaJuegosBajas.getRowCount() == 0){
+					        		
+					        		JOptionPane.showMessageDialog(rootPane, "No se econtraron juegos con esos parametros");	
+					        		
+					        		actualizarTabla(tablaJuegosBajas, "select * from juegos;");
+					        	}
+				        	}
 				}
 			});
 	        
@@ -754,10 +801,10 @@ public class VentanaInicio extends JFrame{
 
 	        cboPlataformaModificaciones = new JComboBox<String>();
 	        cboPlataformaModificaciones.addItem("Elige la plataforma...");
-	        cboPlataformaModificaciones.addItem("Xbox Series");
+	        cboPlataformaModificaciones.addItem("Xbox series");
 	        cboPlataformaModificaciones.addItem("Playstation 5");
 	        cboPlataformaModificaciones.addItem("Playstation 4");
-	        cboPlataformaModificaciones.addItem("Nintendo Switch");
+	        cboPlataformaModificaciones.addItem("Nintendo switch");
 	        cboPlataformaModificaciones.setFont(f1);
 	        cboPlataformaModificaciones.setBounds(460, 170, 176, 23);
 	        panel8.add(cboPlataformaModificaciones);
@@ -800,19 +847,39 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					Juego j = new Juego(txtIdJuegoModificaciones.getText(), txtTituloModificaciones.getText(), 
-							cboGeneroModificaciones.getSelectedItem()+"",
-							txtEstudioModificaciones.getText(),
-							cboPlataformaModificaciones.getSelectedItem()+"",
-	                        Integer.parseInt(spinnerCantidadModificaciones.getValue()+""),
-	                        Double.parseDouble(spinnerPrecioModificaciones.getValue()+"") );
-	                
-	                jDAO = new JuegoDAO();
-	        		
-	        		System.out.println(jDAO.modificarRegistro(j)?"EXITO":"FALLO");
-	        		
-	        		actualizarTabla(tablaJuegosModificaciones, "select * from juegos;");
+					if(txtIdJuegoModificaciones.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(rootPane, "No has seleccionado ningun juego");
+						
+					}else {
 					
+						int dialogButton = JOptionPane.YES_NO_OPTION;
+			            JOptionPane.showConfirmDialog (null, "Cambiar la informacion de juego?","ADVERTENCIA", dialogButton);
+						
+			            if(dialogButton == JOptionPane.YES_OPTION) {
+			            	
+			            	Juego j = new Juego(txtIdJuegoModificaciones.getText(), txtTituloModificaciones.getText(), 
+									cboGeneroModificaciones.getSelectedItem()+"",
+									txtEstudioModificaciones.getText(),
+									cboPlataformaModificaciones.getSelectedItem()+"",
+			                        Integer.parseInt(spinnerCantidadModificaciones.getValue()+""),
+			                        Double.parseDouble(spinnerPrecioModificaciones.getValue()+"") );
+			                
+			                jDAO = new JuegoDAO();
+			                
+			                String estado = "No se encontro el juego a modificar";
+			        		
+			        		System.out.println(jDAO.modificarRegistro(j)? estado = "Los cambios se han aplicado":"FALLO");
+			        		
+			        		JOptionPane.showMessageDialog(rootPane, estado);
+			        		
+			        		actualizarTabla(tablaJuegosModificaciones, "select * from juegos;");
+			        		
+			            if(dialogButton == JOptionPane.NO_OPTION) {
+			                  remove(dialogButton);
+			                }
+			              }
+					}
 				}
 			});
 	        panel8.add(btnActualizar);
@@ -825,15 +892,29 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtIdJuegoModificaciones.getText().length()<=0) {
-						txtIdJuegoModificaciones.setText("  ");
-					}
-					if(txtTituloModificaciones.getText().length()<=0) {
-						txtTituloModificaciones.setText("  ");
-					}
-					
-					actualizarTabla(tablaJuegosModificaciones, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoModificaciones.getText() +
-							  "%' OR titulo like '" + txtTituloModificaciones.getText() + "%';");
+					if(txtIdJuegoModificaciones.getText().isEmpty() && txtTituloModificaciones.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(rootPane, "Ingresa informacion del nombreo o el ID del juego");	
+						
+		        	}else {
+		        		
+		        		if(txtIdJuegoModificaciones.getText().length()<=0) {
+							txtIdJuegoModificaciones.setText("  ");
+						}
+						if(txtTituloModificaciones.getText().length()<=0) {
+							txtTituloModificaciones.setText("  ");
+						}
+						
+						actualizarTabla(tablaJuegosModificaciones, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoModificaciones.getText() +
+								  "%' OR titulo like '" + txtTituloModificaciones.getText() + "%';");
+						
+						if(tablaJuegosModificaciones.getRowCount() == 0){
+			        		
+			        		JOptionPane.showMessageDialog(rootPane, "No se econtraron juegos con esos parametros");	
+			        		
+			        		actualizarTabla(tablaJuegosModificaciones, "select * from juegos;");
+			        	}
+		        	}
 				}
 			});
 	        
@@ -937,7 +1018,7 @@ public class VentanaInicio extends JFrame{
 	        panel11.setPreferredSize(new Dimension(700, 190));
 	        panel11.setBounds(0, 80, 700, 330);
 	        
-	        JLabel lblInformacion4 = new JLabel("SELECCIONA TUS CRITERIOS DE BUSQUEDA: ");
+	        JLabel lblInformacion4 = new JLabel("SELECCIONA TUS CRITERIOS DE BUSQUEDA Y PRECIONA EL BOTON BUSCAR: ");
 	        lblInformacion4.setFont(f2);
 	        lblInformacion4.setBounds(10, 30, 630, 25);
 	        panel11.add(lblInformacion4);
@@ -997,10 +1078,10 @@ public class VentanaInicio extends JFrame{
 
 	        cboPlataformaConsultas = new JComboBox<String>();
 	        cboPlataformaConsultas.addItem("Elige la plataforma...");
-	        cboPlataformaConsultas.addItem("Xbox Series");
+	        cboPlataformaConsultas.addItem("Xbox series");
 	        cboPlataformaConsultas.addItem("Playstation 5");
 	        cboPlataformaConsultas.addItem("Playstation 4");
-	        cboPlataformaConsultas.addItem("Nintendo Switch");
+	        cboPlataformaConsultas.addItem("Nintendo switch");
 	        cboPlataformaConsultas.setFont(f1);
 	        cboPlataformaConsultas.setBounds(150, 200, 176, 23);
 	        panel11.add(cboPlataformaConsultas);
@@ -1039,27 +1120,43 @@ public class VentanaInicio extends JFrame{
 	        btnBuscarConsultas.setFont(f2);
 	        btnBuscarConsultas.setBounds(350, 250, 140, 25);
 	        btnBuscarConsultas.addActionListener(new ActionListener() {
-				
+	        	
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtIdJuegoConsultas.getText().length()<=0) {
-						txtIdJuegoConsultas.setText("  ");
-					}
-					if(txtTituloConsultas.getText().length()<=0) {
-						txtTituloConsultas.setText("  ");
-					}
-					if(txtEstudioConsultas.getText().length()<=0) {
-						txtEstudioConsultas.setText("  ");
-					}
-					
-					actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
-							  "%' OR titulo like '" + txtTituloConsultas.getText() + 
-							  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
-							  "%' OR estudio like '" + txtEstudioConsultas.getText() + 
-							  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
-							  "%' OR cantidad <= " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
-							    " OR precio <= " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
+					if(txtIdJuegoConsultas.getText().isEmpty() && txtTituloConsultas.getText().isEmpty() 
+					   && cboGeneroConsultas.getSelectedIndex() == 0 && txtEstudioConsultas.getText().isEmpty()
+					   && cboPlataformaConsultas.getSelectedIndex() == 0 && spinnerCantidadModificaciones.getValue().equals(0)
+					   && spinnerPrecioModificaciones.getValue().equals(0)) {
+						
+						JOptionPane.showMessageDialog(rootPane, "Ingresa por lo menos un parametro de busqueda");	
+		        	}else {
+		        		
+		        		if(txtIdJuegoConsultas.getText().length()<=0) {
+							txtIdJuegoConsultas.setText("  ");
+						}
+						if(txtTituloConsultas.getText().length()<=0) {
+							txtTituloConsultas.setText("  ");
+						}
+						if(txtEstudioConsultas.getText().length()<=0) {
+							txtEstudioConsultas.setText("  ");
+						}
+						
+						actualizarTabla(tablaJuegosConsultas, "SELECT * FROM juegos where idJuego like '" + txtIdJuegoConsultas.getText() +
+								  "%' OR titulo like '" + txtTituloConsultas.getText() + 
+								  "%' OR genero like '" + cboGeneroConsultas.getSelectedItem() + 
+								  "%' OR estudio like '" + txtEstudioConsultas.getText() + 
+								  "%' OR plataforma like '" + cboPlataformaConsultas.getSelectedItem() + 
+								  "%' OR cantidad <= " + Integer.parseInt(spinnerCantidadConsultas.getValue()+"") + 
+								    " OR precio <= " + df.format(Double.parseDouble(spinnerPrecioConsultas.getValue()+"")) + ";");
+						
+						if(tablaJuegosConsultas.getRowCount() == 0){
+			        		
+			        		JOptionPane.showMessageDialog(rootPane, "No se econtraton juegos con esos parametros");	
+			        		
+			        		actualizarTabla(tablaJuegosConsultas, "select * from juegos;");
+			        	}
+		        	}
 				}
 			});
 	        panel11.add(btnBuscarConsultas);
@@ -1158,7 +1255,7 @@ public class VentanaInicio extends JFrame{
 				plataforma = 2;
 			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Playstation 4")) {
 				plataforma = 3;
-			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Nintendo Switch")) {
+			}else if(tableModel.getValueAt(tabla.getSelectedRow(), 4).equals("Nintendo switch")) {
 				plataforma = 4;
 			}
 	 }
