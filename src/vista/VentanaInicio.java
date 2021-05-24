@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.ObjectStreamException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -79,6 +81,10 @@ public class VentanaInicio extends JFrame{
 		 	ventana.setTitle("Control de inventario de Iguan Games");
 		 	ventana.setSize(710, 660);
 		 	ventana.setLocationRelativeTo(null);
+		 	
+		 	JButton fondo = new JButton(new ImageIcon("Iconos/Tienda.jpg"));
+		 	fondo.setBounds(1, 1, 710, 660);
+		 	ventana.add(fondo);
 		 	
 	        JDesktopPane pane = new JDesktopPane();
 	        
@@ -847,9 +853,11 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtIdJuegoModificaciones.getText().isEmpty()) {
+					if(txtTituloModificaciones.getText().isEmpty() || cboGeneroModificaciones.getSelectedIndex() == 0 
+							|| txtEstudioModificaciones.getText().isEmpty() || cboPlataformaModificaciones.getSelectedIndex() == 0 
+							|| spinnerCantidadModificaciones.getValue().equals(0) || spinnerPrecioModificaciones.getValue().equals(0)) {
 						
-						JOptionPane.showMessageDialog(rootPane, "No has seleccionado ningun juego");
+						JOptionPane.showMessageDialog(rootPane, "Asegurate de llenar cada uno de los espacios");
 						
 					}else {
 					
