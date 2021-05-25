@@ -3,9 +3,7 @@ package vista;
 import javax.print.CancelablePrintJob;
 import javax.swing.*;
 import javax.swing.table.TableModel;
-
 import conexionBD.ConexionBD;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
