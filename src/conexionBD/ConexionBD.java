@@ -2,13 +2,16 @@ package conexionBD;
 
 import java.sql.*;
 
+import modelo.Juego;
+
 public class ConexionBD {
 	
-	private Connection conexion;
-	private Statement stm;
-	private ResultSet rs;
+	private static PreparedStatement pstm;
+	private static Connection conexion = null;
+	private static ConexionBD conexionBD;
+	private static ResultSet rs;
 	
-	public ConexionBD() {
+	private ConexionBD() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
@@ -25,9 +28,23 @@ public class ConexionBD {
 		}
 	}
 	
-	public void cerrarConnexion() {
+	public static synchronized ConexionBD getInstance() {
+        if (conexionBD == null) {
+            new ConexionBD();
+        }
+        return conexionBD;
+    }
+
+    public static Connection getConexion() {
+        if (conexion == null) {
+            new ConexionBD();
+        }
+        return conexion;
+    }
+	
+	static void cerrarConnexion() {
 		try {
-			stm.close();
+			pstm.close();
 			conexion.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -36,24 +53,70 @@ public class ConexionBD {
 		
 	}
 	
-	//		ABC
-	public boolean ejecutarInstruccion(String sql) {
+	public static boolean actualizarJuego(Juego j) {
+		
 		try {
-			stm = conexion.createStatement();
-			return stm.executeUpdate(sql)==1;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			pstm = conexion.prepareStatement("UPDATE Juegos SET titulo=?, genero=?, estudio=?, plataforma=?, cantidad=?, precio=? WHERE idJuego = '" + j.getIdJuego()+"'");
+			pstm.setString(1, j.getTitulo());
+			pstm.setString(2, j.getGenero());
+			pstm.setString(3, j.getEstudio());
+			pstm.setString(4, j.getPlataforma());
+			pstm.setInt(5, j.getCantidad());
+			pstm.setDouble(6, j.getPrecio());
+			
+			pstm.executeUpdate();
+			
+			return true;
+			
+		} catch (Exception e) {
+
+            e.printStackTrace();
 		}
+		
+		return false;
 	}
 	
+	public static boolean agregarJuego(Juego j) {
+		
+		try {
+			pstm = conexion.prepareStatement("INSERT INTO JUEGOS VALUES('" + j.getIdJuego() + "', ?, ?, ?, ?, ?, ?)");
+			pstm.setString(1, j.getTitulo());
+			pstm.setString(2, j.getGenero());
+			pstm.setString(3, j.getEstudio());
+			pstm.setString(4, j.getPlataforma());
+			pstm.setInt(5, j.getCantidad());
+			pstm.setDouble(6, j.getPrecio());
+			
+			pstm.executeUpdate();
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public static boolean eliminarRegistro(String sql) {
+        try {
+            String consulta = sql;
+            pstm = conexion.prepareStatement(consulta);
+            pstm.executeUpdate();
+            return true;
+     } catch (Exception ex) {
+            System.out.println(ex.toString());
+     }
+     return false;
+    }
+	
 	//		Consulta
-	public ResultSet ejecutarConsulta(String sql) {
+	public static ResultSet ejecutarConsulta(String sql) {
 		
 		try {
 			
-			stm = conexion.createStatement();
-			rs = stm.executeQuery(sql);		
+			pstm = conexion.prepareStatement(sql);
+			rs = pstm.executeQuery(sql);		
 			
 		} catch (SQLException e) {
 			System.out.println("No se pudo ejecutar instruccion");

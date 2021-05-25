@@ -9,59 +9,16 @@ import modelo.Juego;
 
 //DAO - Data Access Object
 
-public class JuegoDAO {
-	
-	ConexionBD conexion;
-	int linea;
+class ConsultaJuegos implements Runnable{
 
-	public JuegoDAO() {
-		conexion = new ConexionBD();
-		//this.conexion = conexion;
-	}
 	
-	// Metodos para Altas, Bajas, Cambios y Consultas
+	String filtro;
+	ArrayList<Juego> listaJuegos = new ArrayList<Juego>();
 	
-	public boolean insertarRegistro(Juego j) {
-		boolean resultado = false;
-		
-		String sql="INSERT INTO juegos VALUES('"+j.getIdJuego()+"','"+j.getTitulo()+"','"+j.getGenero()+"','"+j.getEstudio()+"','"+j.getPlataforma()+"',"+j.getCantidad()+","+j.getPrecio()+");";
-		resultado = conexion.ejecutarInstruccion(sql);
-		
-		return resultado;
-	}
-	
-	public boolean eliminarRegistro(String nc) {
-		boolean resultado = false;
-		
-		String sql="DELETE FROM juegos where idJuego = \""+nc+"\"";
-		resultado = conexion.ejecutarInstruccion(sql);
-		
-		return resultado;
-	}
-	
-	public boolean modificarRegistro(Juego j) {
-		boolean resultado = false;
-		
-		String sql = "UPDATE juegos SET titulo = '"+ j.getTitulo() +
-				"', genero = '" + j.getGenero() +
-				"', estudio = '" + j.getEstudio() + 
-				"', plataforma ='" + j.getPlataforma() + 
-				"', cantidad =" + j.getCantidad() +
-				", precio =" + j.getPrecio() +
-				" WHERE idJuego = '" + j.getIdJuego()+"';";
-		
-		resultado = conexion.ejecutarInstruccion(sql);
-		
-		return resultado;
-	}
-	
-	public ArrayList<Juego> BuscarJuego(String filtro) {
-		
-		ArrayList<Juego> listaJuegos = new ArrayList<>();
-		
-		String sql = "SELECT * FROM juegos";
-		
-		ResultSet rs = conexion.ejecutarConsulta(sql);
+	@Override
+	public void run() {
+
+		ResultSet rs = ConexionBD.ejecutarConsulta(filtro);
 		
 		try {
 			if(rs.next()) {
@@ -79,7 +36,79 @@ public class JuegoDAO {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public ConsultaJuegos(String filtro) {
+		
+		this.filtro = filtro;
+	}
+
+	public String getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
+	}
+
+	public ArrayList<Juego> getListaJuegos() {
 		return listaJuegos;
+	}
+
+	public void setListaJuegos(ArrayList<Juego> listaJuegos) {
+		this.listaJuegos = listaJuegos;
+	}
+}
+
+public class JuegoDAO {
+	
+	
+	
+	// Metodos para Altas, Bajas, Cambios y Consultas
+	
+	public boolean insertarRegistro(Juego j) {
+		
+		boolean resultado = false;
+		
+		resultado = ConexionBD.agregarJuego(j);
+		
+		return resultado;
+	}
+	
+	public boolean eliminarRegistro(String nc) {
+		
+		boolean resultado = false;
+		
+		String sql="DELETE FROM juegos where idJuego = \""+nc+"\"";
+		resultado = ConexionBD.eliminarRegistro(sql);
+		
+		return resultado;
+	}
+	
+	public boolean modificarRegistro(Juego j) {
+		
+		boolean resultado = false;
+		
+		resultado = ConexionBD.actualizarJuego(j);
+		
+		return resultado;
+	}
+	
+	public ArrayList<Juego> BuscarJuego(String filtro) {
+		
+		ConsultaJuegos cj = new ConsultaJuegos(filtro);
+		
+		Thread consulta = new Thread(cj);
+		
+		consulta.start();
+		
+		try {
+			consulta.join();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return cj.getListaJuegos();
 	}
 	
 }

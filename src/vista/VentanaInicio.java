@@ -4,6 +4,8 @@ import javax.print.CancelablePrintJob;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 
+import conexionBD.ConexionBD;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ImageFilter;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.ObjectStreamException;
@@ -24,7 +27,7 @@ import modelo.Juego;
 
 
 
-public class VentanaInicio extends JFrame{
+public class VentanaInicio extends JFrame {
 	
 	 public VentanaInicio() {
 
@@ -32,13 +35,17 @@ public class VentanaInicio extends JFrame{
 		 
 	    }
 	 
+	 ConexionBD conexion = ConexionBD.getInstance();
+	 
 	 JInternalFrame frameInicioSesion, frameAltas, frameBajas, frameModificaciones, frameConsultas;
 	 
-	 JTextField txtUsuario, txtPassword,
+	 JTextField txtUsuario,
 	 			txtTituloAltas, txtEstudioAltas,
 	 			txtIdJuegoBajas, txtTituloBajas, txtEstudioBajas,
 	 			txtIdJuegoModificaciones, txtTituloModificaciones, txtEstudioModificaciones,
 	 			txtIdJuegoConsultas, txtTituloConsultas, txtEstudioConsultas;
+	 
+	 JPasswordField txtPassword;
 	 
 	 JButton btnEntrar, btnCerrar,
 	 		 btnAgregarAltas, btnRestablecerAltas, 
@@ -81,10 +88,6 @@ public class VentanaInicio extends JFrame{
 		 	ventana.setTitle("Control de inventario de Iguan Games");
 		 	ventana.setSize(710, 660);
 		 	ventana.setLocationRelativeTo(null);
-		 	
-		 	JButton fondo = new JButton(new ImageIcon("Iconos/Tienda.jpg"));
-		 	fondo.setBounds(1, 1, 710, 660);
-		 	ventana.add(fondo);
 		 	
 	        JDesktopPane pane = new JDesktopPane();
 	        
@@ -226,7 +229,7 @@ public class VentanaInicio extends JFrame{
 	        lblPassword.setBounds(105, 250, 400, 25);
 	        panelInicioSesion.add(lblPassword);
 
-	        txtPassword = new JTextField(10);
+	        txtPassword = new JPasswordField(10);
 	        txtPassword.setFont(f2);
 	        txtPassword.setBounds(70, 280, 176, 23);
 	        panelInicioSesion.add(txtPassword);
@@ -239,8 +242,20 @@ public class VentanaInicio extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					inicio.setVisible(false);
-					ventana.setVisible(true);
+					if(txtUsuario.getText().isEmpty() && txtPassword.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(rootPane, "No olvides llenar los camos usuario/contraseña");	
+						
+		        	}else {
+		        		
+		        		if(txtUsuario.getText().equals("Mario") && txtPassword.getText().equals("1234")) {
+		        			inicio.setVisible(false);
+							ventana.setVisible(true);
+		        		}else {
+		        			JOptionPane.showMessageDialog(rootPane, "usuario/contraseña incorrectos");
+		        		}
+		        		
+		        	}
 				}
 			});
 	        panelInicioSesion.add(btnEntrar);
