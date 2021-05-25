@@ -450,7 +450,7 @@ public class VentanaInicio extends JFrame {
 
 	        pane.add(frameAltas);
 	       
-	        //------------------------------------- ALTAS ---------------------------------------
+	        //------------------------------------- FIn ALTAS ---------------------------------------
 	        
 	      //------------------------------------- BAJAS ---------------------------------------
 	        frameBajas = new JInternalFrame();
@@ -723,7 +723,7 @@ public class VentanaInicio extends JFrame {
 
 	        pane.add(frameBajas);
 
-	        //------------------------------------- BAJAS ---------------------------------------
+	        //------------------------------------- FIN BAJAS ---------------------------------------
 	        
 	      //--------------------------------- MODIFICACIONES ----------------------------------
 	        frameModificaciones = new JInternalFrame();
@@ -1001,7 +1001,7 @@ public class VentanaInicio extends JFrame {
 
 	        pane.add(frameModificaciones);
 
-	        //--------------------------------- MODIFICACIONES ----------------------------------
+	        //--------------------------------- Fin MODIFICACIONES ----------------------------------
 	        
 	        //----------------------------------- CONSULTAS -------------------------------------
 	        frameConsultas = new JInternalFrame();
@@ -1201,7 +1201,7 @@ public class VentanaInicio extends JFrame {
 
 	        pane.add(frameConsultas);
 
-	        //----------------------------------- CONSULTAS -------------------------------------
+	        //----------------------------------- Fin CONSULTAS -------------------------------------
 	       
 	        ventana.add(pane, BorderLayout.CENTER);
 	}
