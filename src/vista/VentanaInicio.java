@@ -18,12 +18,9 @@ import java.io.ObjectStreamException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import controlador.JuegoDAO;
 import modelo.Juego;
-
-
 
 public class VentanaInicio extends JFrame {
 	
