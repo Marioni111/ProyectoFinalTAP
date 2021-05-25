@@ -1148,6 +1148,7 @@ public class VentanaInicio extends JFrame {
 					   && spinnerPrecioModificaciones.getValue().equals(0)) {
 						
 						JOptionPane.showMessageDialog(rootPane, "Ingresa por lo menos un parametro de busqueda");	
+						
 		        	}else {
 		        		
 		        		if(txtIdJuegoConsultas.getText().length()<=0) {
