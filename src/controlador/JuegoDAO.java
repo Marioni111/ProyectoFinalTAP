@@ -62,10 +62,6 @@ class ConsultaJuegos implements Runnable{
 
 public class JuegoDAO {
 	
-	
-	
-	// Metodos para Altas, Bajas, Cambios y Consultas
-	
 	public boolean insertarRegistro(Juego j) {
 		
 		boolean resultado = false;
