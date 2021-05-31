@@ -27,7 +27,6 @@ public class VentanaInicio extends JFrame {
 	 public VentanaInicio() {
 
 		 crearComponentes();
-		 
 	    }
 	 
 	 ConexionBD conexion = ConexionBD.getInstance();
