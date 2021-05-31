@@ -2,31 +2,24 @@ package conexionBD;
 
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 import modelo.Juego;
 
 public class ConexionBD {
 	
 	private static PreparedStatement pstm;
 	private static Connection conexion = null;
+    public static String usuario;
+    public static String password;
 	private static ConexionBD conexionBD;
 	private static ResultSet rs;
+	public static boolean status = false;
 	
-	private ConexionBD() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			String URL = "jdbc:mysql://localhost:3306/TiendaDeVideoJuegos";
-			
-			conexion = DriverManager.getConnection(URL,"root","1234");
-			
-			System.out.println("Conexion establecida");
-			
-		} catch (ClassNotFoundException e) {
-			System.out.printf("Error de Driver");
-		} catch (SQLException e) {
-			System.out.printf("Error de conexion a MySQL o de la BD");
-		}
-	}
+	public static void setCuenta(String usuario, String password){
+        ConexionBD.usuario = usuario;
+        ConexionBD.password = password;
+    }
 	
 	public static synchronized ConexionBD getInstance() {
         if (conexionBD == null) {
@@ -36,10 +29,30 @@ public class ConexionBD {
     }
 
     public static Connection getConexion() {
-        if (conexion == null) {
-            new ConexionBD();
-        }
-        return conexion;
+    	try {
+    		
+    		status = false;
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			String URL = "jdbc:mysql://localhost:3306/TiendaDeVideoJuegos";
+			
+			conexion = DriverManager.getConnection(URL,ConexionBD.usuario,ConexionBD.password);
+			status = true;
+			
+			System.out.println("Conexion establecida");
+			
+		} catch (ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null,"No se puede establecer conexion... revisa drivers" + e.getMessage(),
+                    "error de conexion",JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"ERROR " + e.getMessage(),
+                    "error de conexion",JOptionPane.ERROR_MESSAGE);
+		}
+    	return conexion;
+    }
+    
+    public static boolean getStatus(){
+        return status;
     }
 	
 	static void cerrarConnexion() {

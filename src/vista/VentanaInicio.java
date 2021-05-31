@@ -237,7 +237,18 @@ public class VentanaInicio extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					if(txtUsuario.getText().isEmpty() && txtPassword.getText().isEmpty()) {
+					ConexionBD.setCuenta(txtUsuario.getText(), txtPassword.getText());
+			        ConexionBD.getConexion();
+			        if(ConexionBD.getStatus()){
+			        	inicio.setVisible(false);
+						ventana.setVisible(true);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "USUARIO/CONTRASEÑA INCORRECTO","Error De Conexion",JOptionPane.ERROR_MESSAGE);
+			            txtUsuario.setText("");
+			            txtPassword.setText("");
+			        }
+					
+					/*if(txtUsuario.getText().isEmpty() && txtPassword.getText().isEmpty()) {
 						
 						JOptionPane.showMessageDialog(rootPane, "No olvides llenar los camos usuario/contraseña");	
 						
@@ -250,7 +261,7 @@ public class VentanaInicio extends JFrame {
 		        			JOptionPane.showMessageDialog(rootPane, "usuario/contraseña incorrectos");
 		        		}
 		        		
-		        	}
+		        	}*/
 				}
 			});
 	        panelInicioSesion.add(btnEntrar);
