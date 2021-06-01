@@ -1302,7 +1302,6 @@ public class VentanaInicio extends JFrame {
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			
 			return maxId = modelo.getValueAt(0, 0)+"";
 	 }
 	 
